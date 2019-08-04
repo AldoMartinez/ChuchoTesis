@@ -1,0 +1,30 @@
+// Sidebar
+ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordion
+    // Sidebar - Brand
+    a.sidebar-brand.d-flex.align-items-center.justify-content-center(href='/inicio')
+        .sidebar-brand-text.mx-3 Chucho
+    // Divider
+    hr.sidebar-divider.my-0
+    // Nav Item - Ingreso de datos
+    li#inicioSB.nav-item.active
+        a.nav-link(href='/inicio')
+            i.fas.fa-fw.fa-tachometer-alt
+            span Ingreso de datos
+    // Divider
+    hr.sidebar-divider.my-0
+    // Nav Item - Rendimiento
+    li#graficasSB.nav-item
+        a.nav-link(href='/graficas')
+            i.fas.fa-fw.fa-tachometer-alt
+            span Rendimiento
+    // Nav Item - Tables
+    li#tablaSB.nav-item
+        a.nav-link(href='/tabla')
+            i.fas.fa-fw.fa-table
+            span Tabla
+    // Divider
+    hr.sidebar-divider.d-none.d-md-block
+    // Sidebar Toggler (Sidebar)
+    .text-center.d-none.d-md-inline
+        button#sidebarToggle.rounded-circle.border-0
+// End of Sidebar
