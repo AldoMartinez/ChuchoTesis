@@ -65,11 +65,11 @@ module.exports = function() {
         }).then(function(user) {
             nombresUsuario = user[0].nombres;
             apellidosUsuario = user[0].apellidos;
+            res.render("index", {
+                nombres: nombresUsuario,
+                apellidos: apellidosUsuario
+            })
         })
-        res.render("index", {
-            nombres: nombresUsuario,
-            apellidos: apellidosUsuario
-        });
     });
     router.post('/inicio', (req, res) => {
         let {correo, contrasena} = req.body;
