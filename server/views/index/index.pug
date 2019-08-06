@@ -13,172 +13,37 @@ block index
                         h6.m-0.font-weight-bold.text-primary Datos
                     // Card Body
                     .card-body
-                        form.user(action='')
+                        form.user(action='/inicio', method="POST")
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='pram', placeholder='PRAM')
+                                input#exampleInputEmail.form-control.form-control-user(type='text', placeholder='PRAM', name="pram", value=pram)
                             .form-group.row
                                 .col-sm-4.mb-3.mb-sm-0
-                                    input#exampleInputEmail.form-control.form-control-user(type='ancho', placeholder='Ancho')
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Ancho', name="ancho", value=ancho, step=0.001)
                                 .col-sm-4.mb-3.mb-sm-0
-                                    input#exampleInputEmail.form-control.form-control-user(type='largo', placeholder='Largo')
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Largo', name="largo", value=largo, step=0.001)
                                 .col-sm-4
-                                    input#exampleInputEmail.form-control.form-control-user(type='calibre', placeholder='Calibre')
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Espesor', name="espesor", value=espesor, step=0.001)
                             .form-group.row
                                 .col-sm-6.mb-3.mb-sm-0
-                                    input#exampleInputEmail.form-control.form-control-user(type='tcinta', placeholder='Temperatura cinta')
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Temperatura cinta', name="temperatura_cinta", value=temperatura_cinta, step=0.001)
                                 .col-sm-6
-                                    input#exampleInputEmail.form-control.form-control-user(type='tbaño', placeholder='Temperatura baño')
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Temperatura baño', name="temperatura_bano", value=temperatura_bano, step=0.001)
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='al', placeholder='Aluminio efectivo')
+                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Aluminio efectivo', name="al_efectivo", value=al_efectivo, step=0.001)
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='fe', placeholder='Hierro')
+                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Hierro', name="hierro", value=hierro, step=0.001)
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='velocidad', placeholder='Velocidad')
+                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Velocidad', name="velocidad", value=velocidad, step=0.001)
                             .form-group.text-center
-                                a.btn.btn-success.btn-icon-split(href='#')
+                                button.btn.btn-success.btn-icon-split(type="submit", value="Guardar datos")
                                     span.icon.text-white-50
                                         i.fas.fa-check
                                     span.text Guardar datos
-    //- // Page Wrapper
-    //- #wrapper
-        //- // Sidebar
-        //- ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordion
-        //-     // Sidebar - Brand
-        //-     a.sidebar-brand.d-flex.align-items-center.justify-content-center(href='index.html')
-        //-         .sidebar-brand-text.mx-3 Chucho
-        //-     // Divider
-        //-     hr.sidebar-divider.my-0
-        //-     // Nav Item - Ingreso de datos
-        //-     li.nav-item.active
-        //-         a.nav-link(href='index.html')
-        //-             i.fas.fa-fw.fa-tachometer-alt
-        //-             span Ingreso de datos
-        //-     // Divider
-        //-     hr.sidebar-divider.my-0
-        //-     // Nav Item - Rendimiento
-        //-     li.nav-item
-        //-         a.nav-link(href='charts.html')
-        //-             i.fas.fa-fw.fa-tachometer-alt
-        //-             span Rendimiento
-        //-     // Nav Item - Tables
-        //-     li.nav-item
-        //-         a.nav-link(href='tables.html')
-        //-             i.fas.fa-fw.fa-table
-        //-             span Tables
-        //-     // Divider
-        //-     hr.sidebar-divider.d-none.d-md-block
-        //-     // Sidebar Toggler (Sidebar)
-        //-     .text-center.d-none.d-md-inline
-        //-         button#sidebarToggle.rounded-circle.border-0
-        //- // End of Sidebar
-        //- // Content Wrapper
-        //- #content-wrapper.d-flex.flex-column
-        //-     // Main Content
-        //-     #content
-        //-         // Topbar
-        //-         nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow
-        //-             // Sidebar Toggle (Topbar)
-        //-             button#sidebarToggleTop.btn.btn-link.d-md-none.rounded-circle.mr-3
-        //-                 i.fa.fa-bars
-        //-             // Topbar Navbar
-        //-             ul.navbar-nav.ml-auto
-        //-                 .topbar-divider.d-none.d-sm-block
-        //-                 // Nav Item - User Information
-        //-                 li.nav-item.dropdown.no-arrow
-        //-                     a#userDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-        //-                         span.mr-2.d-none.d-lg-inline.text-gray-600.small Aldo Martinez
-        //-                         img.img-profile.rounded-circle(src='https://source.unsplash.com/QAB-WJcbgJk/60x60')
-        //-                     // Dropdown - User Information
-        //-                     .dropdown-menu.dropdown-menu-right.shadow.animated--grow-in(aria-labelledby='userDropdown')
-        //-                         a.dropdown-item(href='#')
-        //-                             i.fas.fa-user.fa-sm.fa-fw.mr-2.text-gray-400
-        //-                             |                   Profile
-        //-                         a.dropdown-item(href='#')
-        //-                             i.fas.fa-cogs.fa-sm.fa-fw.mr-2.text-gray-400
-        //-                             |                   Settings
-        //-                         a.dropdown-item(href='#')
-        //-                             i.fas.fa-list.fa-sm.fa-fw.mr-2.text-gray-400
-        //-                             |                   Activity Log
-        //-                         .dropdown-divider
-        //-                         a.dropdown-item(href='#', data-toggle='modal', data-target='#logoutModal')
-        //-                             i.fas.fa-sign-out-alt.fa-sm.fa-fw.mr-2.text-gray-400
-        //-                             |                   Logout
-        //-             // End of Topbar
-        //-         // Begin Page Content
-        //-         .container-fluid
-        //-             // Page Heading
-        //-             .d-sm-flex.align-items-center.justify-content-between.mb-4
-        //-                 h1.h3.mb-0.text-gray-800 Ingreso de datos
-        //-             // - Ingreso de Datos -
-        //-             .row
-        //-                 .col-lg-6.offset-lg-3
-        //-                     .card.shadow.mb-4
-        //-                         // Card Header - Dropdown
-        //-                         .card-header.py-3.d-flex.flex-row.align-items-center.justify-content-between
-        //-                             h6.m-0.font-weight-bold.text-primary Datos
-        //-                         // Card Body
-        //-                         .card-body
-        //-                             form.user(action='')
-        //-                                 .form-group
-        //-                                     input#exampleInputEmail.form-control.form-control-user(type='pram', placeholder='PRAM')
-        //-                                 .form-group.row
-        //-                                     .col-sm-4.mb-3.mb-sm-0
-        //-                                         input#exampleInputEmail.form-control.form-control-user(type='ancho', placeholder='Ancho')
-        //-                                     .col-sm-4.mb-3.mb-sm-0
-        //-                                         input#exampleInputEmail.form-control.form-control-user(type='largo', placeholder='Largo')
-        //-                                     .col-sm-4
-        //-                                         input#exampleInputEmail.form-control.form-control-user(type='calibre', placeholder='Calibre')
-        //-                                 .form-group.row
-        //-                                     .col-sm-6.mb-3.mb-sm-0
-        //-                                         input#exampleInputEmail.form-control.form-control-user(type='tcinta', placeholder='Temperatura cinta')
-        //-                                     .col-sm-6
-        //-                                         input#exampleInputEmail.form-control.form-control-user(type='tbaño', placeholder='Temperatura baño')
-        //-                                 .form-group
-        //-                                     input#exampleInputEmail.form-control.form-control-user(type='al', placeholder='Aluminio efectivo')
-        //-                                 .form-group
-        //-                                     input#exampleInputEmail.form-control.form-control-user(type='fe', placeholder='Hierro')
-        //-                                 .form-group
-        //-                                     input#exampleInputEmail.form-control.form-control-user(type='velocidad', placeholder='Velocidad')
-        //-                                 .form-group.text-center
-        //-                                     a.btn.btn-success.btn-icon-split(href='#')
-        //-                                         span.icon.text-white-50
-        //-                                             i.fas.fa-check
-        //-                                         span.text Guardar datos
-        //-         // /.container-fluid
-        //-         // End of Main Content
-        //-         // Footer
-        //-     footer.sticky-footer.bg-white
-        //-         .container.my-auto
-        //-             .copyright.text-center.my-auto
-        //-                 span Copyright © Your Website 2019
-        //-     // End of Footer
-        //-     // End of Content Wrapper
-    //- // End of Page Wrapper
-    //- // Scroll to Top Button
-    //- a.scroll-to-top.rounded(href='#page-top')
-    //-     i.fas.fa-angle-up
-    //- // Logout Modal
-    //- #logoutModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-    //-     .modal-dialog(role='document')
-    //-         .modal-content
-    //-         .modal-header
-    //-             h5#exampleModalLabel.modal-title ¿Estás seguro de cerrar sesión?
-    //-             button.close(type='button', data-dismiss='modal', aria-label='Close')
-    //-             span(aria-hidden='true') ×
-    //-         .modal-body Selecciona "Cerrar sesión" si estas seguro de terminar tu sesión actual.
-    //-         .modal-footer
-    //-             button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
-    //-             a.btn.btn-primary(href='login.html') Cerrar sesión
-    //- // Bootstrap core JavaScript
-    //- script(src='vendor/jquery/jquery.min.js')
-    //- script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')
-    //- // Core plugin JavaScript
-    //- script(src='vendor/jquery-easing/jquery.easing.min.js')
-    //- // Custom scripts for all pages
-    //- script(src='js/sb-admin-2.min.js')
-    //- // Page level plugins
-    //- script(src='vendor/chart.js/Chart.min.js')
-    //- // Page level custom scripts
-    //- script(src='js/demo/chart-area-demo.js')
-    //- script(src='js/demo/chart-pie-demo.js')
-
+                        .col-lg-12
+                            if(errores)
+                                each error in errores
+                                    .card.bg-danger.text-white-shadow
+                                        .card-body.erroresMS.text-center.text-white=error.mensaje
+                            if(successMessage)
+                                .card.bg-success.text-white-shadow
+                                    .card-body.erroresMS.text-center.text-white=successMessage
