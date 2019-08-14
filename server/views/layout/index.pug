@@ -13,6 +13,7 @@ html(lang='en')
     // Custom styles for this template
     link(href='/css/sb-admin-2.min.css', rel='stylesheet')
     link(href='/css/general.css', rel='stylesheet')
+    //- script(src="https://code.jquery.com/jquery-1.10.2.js")
   body#page-top
     // Page Wrapper
     #wrapper
@@ -23,6 +24,7 @@ html(lang='en')
             #content
                 include includes/header
                 block index
+                block noForm
                 block charts
                 block tables
             include includes/footer
@@ -60,3 +62,4 @@ html(lang='en')
     script(src='vendor/datatables/dataTables.bootstrap4.min.js')
     script(src="js/demo/datatables-demo.js")
     script(src="js/general.js")
+    script(src="js/Lamina.js")

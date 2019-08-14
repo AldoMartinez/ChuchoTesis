@@ -1,5 +1,8 @@
 extends ../layout/index
 block tables
+    // Pasa el array de las laminas al javascript file
+    script(type='text/javascript').                                                   
+        var data =!{JSON.stringify(laminas)};
     // Begin Page Content
     .container-fluid
         // Page Heading
@@ -23,10 +26,11 @@ block tables
                                 th Largo
                                 th Espesor
                                 th Tcinta
-                                th Tbaño
+                                th Tpaila
                                 th Aluminio efectivo
                                 th Hierro
                                 th Velocidad
+                                th Dia
                         tbody
                             if(laminas)
                                 each lamina in laminas
@@ -37,10 +41,11 @@ block tables
                                         td=lamina.largo
                                         td=lamina.espesor
                                         td=lamina.temperatura_cinta
-                                        td=lamina.temperatura_bano
+                                        td=lamina.temperatura_paila
                                         td=lamina.al_efectivo
                                         td=lamina.hierro
                                         td=lamina.velocidad
+                                        td=lamina.fecha
                             
     // /.container-fluid
     // End of Main Content

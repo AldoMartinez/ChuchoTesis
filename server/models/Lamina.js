@@ -22,7 +22,7 @@ const lamina = db.define('lamina', {
     temperatura_cinta: {
         type: Sequelize.FLOAT
     },
-    temperatura_bano: {
+    temperatura_paila: {
         type: Sequelize.FLOAT
     },
     al_efectivo: {
@@ -33,6 +33,9 @@ const lamina = db.define('lamina', {
     },
     velocidad: {
         type: Sequelize.FLOAT
+    },
+    fecha: {
+        type: Sequelize.DATE
     }
 },
     {

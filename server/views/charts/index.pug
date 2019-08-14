@@ -1,5 +1,9 @@
 extends ../layout/index
 block charts
+    // Pasa el array de las laminas al javascript file
+    script(type='text/javascript').                                                   
+        var data = !{JSON.stringify(laminas)};
+        var datosDelDia = !{JSON.stringify(datosDelDia)};
     // Begin Page Content
     .container-fluid
         // Page Heading

@@ -6,19 +6,19 @@ ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordio
     // Divider
     hr.sidebar-divider.my-0
     // Nav Item - Ingreso de datos
-    li#inicioSB.nav-item.active
+    li#inicioSB.nav-item(class = (ruta === '/inicio' ? 'active' : ''))
         a.nav-link(href='/inicio')
             i.fas.fa-fw.fa-tachometer-alt
             span Ingreso de datos
     // Divider
     hr.sidebar-divider.my-0
     // Nav Item - Rendimiento
-    li#graficasSB.nav-item
+    li#graficasSB.nav-item(class = (ruta === '/graficas' ? 'active' : ''))
         a.nav-link(href='/graficas')
             i.fas.fa-fw.fa-tachometer-alt
             span Rendimiento
     // Nav Item - Tables
-    li#tablaSB.nav-item
+    li#tablaSB.nav-item(class = (ruta === '/tabla' ? 'active' : ''))
         a.nav-link(href='/tabla')
             i.fas.fa-fw.fa-table
             span Tabla

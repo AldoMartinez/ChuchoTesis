@@ -3,6 +3,7 @@ const router = express.Router();
 
 const usuario = require('../models/Usuario');
 const lamina = require('../models/Lamina');
+const dia = require('../models/DatosDelDia');
 
 //var usuarioID = null;
 global.usuarioID = null;
@@ -94,16 +95,34 @@ module.exports = function() {
             nombresUsuario = user[0].nombres;
             apellidosUsuario = user[0].apellidos;
             global.nombreUsuario = nombresUsuario + " " + apellidosUsuario;
-            res.render("index", {
-                nombreUsuario: global.nombreUsuario
-                // nombres: nombresUsuario,
-                // apellidos: apellidosUsuario
-            })
         })
+
+        let fechaActual = obtenerFecha();
+        dia.findAll({
+            where: {
+                fecha: obtenerFecha()
+            }
+        })
+        .then(function(dia) {
+            console.log("Datos del dia");
+            console.log(dia.length);
+            // Si ya hay un registro en datos del dia en el dia actual, ya no se permite introducir mas datos
+            if(dia.length == 0) {
+                res.render("index", {
+                    nombreUsuario: global.nombreUsuario
+                })
+            } else {
+                res.render("index/noForm.pug", {
+                    nombreUsuario: global.nombreUsuario
+                })
+            }
+        })
+        .catch(error => console.log(error));
     });
     router.post('/inicio', (req, res) => {
         // valida que todos los campos estén llenos
-        let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_bano, al_efectivo, hierro, velocidad} = req.body;
+        let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_paila, al_efectivo, hierro, velocidad} = req.body;
+        let fecha = Date();
         let errores = [];
         if(!pram) {
             errores.push({"mensaje" : "Agrega la pram"});
@@ -120,8 +139,8 @@ module.exports = function() {
         if(!temperatura_cinta) {
             errores.push({"mensaje" : "Agrega la temperatura de cinta"});
         }
-        if(!temperatura_bano) {
-            errores.push({"mensaje" : "Agrega la temperatura de baño"});
+        if(!temperatura_paila) {
+            errores.push({"mensaje" : "Agrega la temperatura de paila"});
         }
         if(!al_efectivo) {
             errores.push({"mensaje" : "Agrega el aluminio efectivo"});
@@ -141,7 +160,7 @@ module.exports = function() {
                 largo,
                 espesor,
                 temperatura_cinta,
-                temperatura_bano,
+                temperatura_paila,
                 al_efectivo,
                 hierro,
                 velocidad
@@ -155,10 +174,11 @@ module.exports = function() {
                 largo,
                 espesor,
                 temperatura_cinta,
-                temperatura_bano,
+                temperatura_paila,
                 al_efectivo,
                 hierro,
-                velocidad
+                velocidad,
+                fecha
             })
             .then(lamina => res.render('index', {
                 successMessage
@@ -167,36 +187,55 @@ module.exports = function() {
         }
         console.log(req.body);
     });
+    router.post("/valoresFinales", (req, res) => {
+        let {peso_aluminio, peso_hierro, consumo_zinc, dross_real} = req.body;
+        let fecha = Date();
+
+        dia.create({
+            peso_aluminio,
+            peso_hierro,
+            consumo_zinc,
+            dross_real,
+            fecha
+        })
+        .then(dia => res.redirect("/inicio"))
+        .catch(error => console.log(error));
+    })
     router.get('/graficas', (req, res) => {
-        res.render('charts', {
-            nombreUsuario: global.nombreUsuario
-        });
-        // var nombresUsuario = "";
-        // var apellidosUsuario = "";
-        // usuario.findAll({
-        //     where: {
-        //         usuario_id: global.usuarioID
-        //     }
-        // }).then(function(user) {
-        //     nombresUsuario = user[0].nombres;
-        //     apellidosUsuario = user[0].apellidos;
-        //     res.render("charts", {
-        //         nombres: nombresUsuario,
-        //         apellidos: apellidosUsuario
-        //     })
-        // })
-        // .catch(error => console.log(error))
+        lamina.findAll()
+            .then(function(laminas) {
+                let fechaActual = obtenerFecha();
+                dia.findAll()
+                .then(function(dia) {
+                    res.render('charts', {
+                        nombreUsuario: global.nombreUsuario,
+                        laminas: laminas,
+                        datosDelDia: dia
+                    })
+                })
+                .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
     });
     router.get('/tabla', (req, res) => {
         lamina.findAll()
-            .then(laminas => res.render('tables', {
-                nombreUsuario: global.nombreUsuario,
-                laminas: laminas
-            }))
+            .then(function(laminas) {
+                res.render('tables', {
+                    nombreUsuario: global.nombreUsuario,
+                    laminas: laminas
+                })
+            })
             .catch(error => console.log(error));
-        // res.render("tables", {
-        //     nombreUsuario: global.nombreUsuario
-        // })
     });
     return router
+}
+
+function obtenerFecha() {
+    var currentTime = new Date();
+    var month = ("0" + (currentTime.getMonth() + 1)).slice(-2)
+    var day = ("0" + currentTime.getDate()).slice(-2)
+    var year = currentTime.getFullYear();
+    const fecha = year + "-" + month + "-" + day;
+
+    return fecha;
 }

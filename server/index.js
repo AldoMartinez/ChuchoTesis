@@ -23,6 +23,12 @@ app.set('views', path.join(__dirname, './views'));
 // cargar una carpeta estatica public
 app.use(express.static('public'));
 
+// Genera la ruta
+app.use((req, res, next) => {
+    res.locals.ruta = req.path;
+    return next();
+})
+
 // ejecuta el bodyparser
 app.use(bodyParser.urlencoded({extended: true}));
 
