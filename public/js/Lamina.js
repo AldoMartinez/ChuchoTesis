@@ -134,13 +134,24 @@ class DatoDelDia {
 
         this.dross_calculado = dross;
     }
-
+    // El indice se obtiene de la división del dross (Kg) entre Area (m^2)
     obtenerIndiceCalculado() {
+        // let drossGramos = this.dross_calculado * 1000;
+        // this.indiceCalculado = drossGramos / this.areaTotal;
         this.indiceCalculado = this.dross_calculado / this.areaTotal;
     }
 
     obtenerIndiceReal() {
+        // let drossGramos = this.dross_real * 1000;
+        // this.indiceReal = drossGramos / this.areaTotal;
         this.indiceReal = this.dross_real / this.areaTotal;
+    }
+}
+
+class PuntoCartesiano {
+    constructor(fecha, valor) {
+        this.x = fecha;
+        this.y = valor;
     }
 }
 
@@ -165,4 +176,198 @@ datosDelDia.forEach(dato => {
 
 console.log(datosFinalesPorDia);
 
+// Acomodo de datos para la gráfica
+var fechas = [];
+var valores = [];
 
+datosFinalesPorDia.forEach(datoPorDia => {
+    let fecha = new Date(datoPorDia.fecha);
+    fechas.push(fecha);
+    valores.push(datoPorDia.indiceCalculado);
+    // let coordenada = new PuntoCartesiano(fecha, datoPorDia.indiceCalculado);
+    // chartData.push(coordenada);
+});
+
+console.log(fechas);
+
+// Area Chart Example
+// var ctx = document.getElementById("");
+// var myLineChart = new Chart(ctx, {
+//   type: 'line',
+//   data: {
+//     datasets: [{
+//       backgroundColor: "rgba(78, 115, 223, 0.05)",
+//       borderColor: "rgba(78, 115, 223, 1)",
+//       pointRadius: 3,
+//       pointBackgroundColor: "rgba(78, 115, 223, 1)",
+//       pointBorderColor: "rgba(78, 115, 223, 1)",
+//       pointHoverRadius: 3,
+//       pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+//       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+//       pointHitRadius: 10,
+//       pointBorderWidth: 2,
+//       data: chartData,
+//     }],
+//   },
+//   options: {
+//     maintainAspectRatio: false,
+//     layout: {
+//       padding: {
+//         left: 10,
+//         right: 25,
+//         top: 25,
+//         bottom: 0
+//       }
+//     },
+//     scales: {
+//       xAxes: [{
+//         type: 'time',
+//         time: {
+//           round: 'day'
+//         },
+//         scaleLabel: {
+//             display: true,
+//             labelString: 'Date'
+//         }
+//         // gridLines: {
+//         //   display: false,
+//         //   drawBorder: false
+//         // },
+//         // ticks: {
+//         //   maxTicksLimit: 7
+//         // }
+//       }],
+//       yAxes: [{
+//         ticks: {
+//           maxTicksLimit: 5,
+//           padding: 10,
+//         //   // Include a dollar sign in the ticks
+//         //   callback: function(value, index, values) {
+//         //     return '$' + number_format(value);
+//         //   }
+//         },
+//         gridLines: {
+//           color: "rgb(234, 236, 244)",
+//           zeroLineColor: "rgb(234, 236, 244)",
+//           drawBorder: false,
+//           borderDash: [2],
+//           zeroLineBorderDash: [2]
+//         }
+//       }],
+//     },
+//     legend: {
+//       display: false
+//     },
+//     tooltips: {
+//       backgroundColor: "rgb(255,255,255)",
+//       bodyFontColor: "#858796",
+//       titleMarginBottom: 10,
+//       titleFontColor: '#6e707e',
+//       titleFontSize: 14,
+//       borderColor: '#dddfeb',
+//       borderWidth: 1,
+//       xPadding: 15,
+//       yPadding: 15,
+//       displayColors: false,
+//       intersect: false,
+//       mode: 'index',
+//       caretPadding: 10
+//       }
+//     }
+// });
+
+// DEPRECATED
+window.randomScalingFactor = function() {
+    let valor = Math.round(Samples.utils.rand(0, 10));
+    return valor
+};
+var timeFormat = 'MM/DD/YYYY';
+function newDate(days) {
+    let fecha = moment().add(days, 'd').toDate();
+    console.log(fecha);
+    return fecha;
+}
+function newDateString(days) {
+    return moment().add(days, 'd').format(timeFormat);
+}
+var color = Chart.helpers.color;
+var config = {
+    type: 'line',
+    data: {
+        labels: fechas,
+        datasets: [{
+            label: 'Indice Calculado',
+            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.red,
+            fill: false,
+            lineTension: 0,
+            data: valores,
+        }, {
+            label: 'Indice Real',
+            //backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+            //borderColor: window.chartColors.blue,
+            fill: false,
+            backgroundColor: "rgba(78, 115, 223, 0.05)",
+            borderColor: "rgba(78, 115, 223, 1)",
+            pointRadius: 3,
+            pointBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointBorderColor: "rgba(78, 115, 223, 1)",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+            data: [
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor()
+            ],
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        layout: {
+            padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+            }
+        },
+        title: {
+            text: 'Chart.js Time Scale'
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'day',
+                    parser: timeFormat,
+                    round: 'day'
+                    // tooltipFormat: 'll HH:mm'
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Indice'
+                },
+                gridLines: {
+                    color: "rgb(234, 236, 244)",
+                    zeroLineColor: "rgb(234, 236, 244)",
+                    drawBorder: false,
+                    borderDash: [2],
+                    zeroLineBorderDash: [2]
+                }
+            }]
+        },
+    }
+};
+window.onload = function() {
+    var ctx = document.getElementById('myAreaChart').getContext('2d');
+    window.myLine = new Chart(ctx, config);
+};
