@@ -11,6 +11,7 @@ const tablaController = require('../controllers/tablaController');
 //var usuarioID = null;
 global.usuarioID = null;
 global.nombreUsuario = "";
+var sesion;
 module.exports = function() {
     router.get("/", loginController.loginControllerGet);
     router.get('/login', loginController.loginControllerGet);

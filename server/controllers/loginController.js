@@ -1,6 +1,9 @@
 const usuario = require('../models/Usuario');
+const routes = require('../routes/index');
 
 exports.loginControllerGet = (req, res) => {
+    routes.sesion = req.session;
+    routes.sesion.email = null;
     res.render('login', {
         nombrePagina: 'Login'
     });
@@ -20,6 +23,8 @@ exports.infoUsuario = (req, res) => {
                 }
             });
             if(usuarioCorrecto) {
+                routes.sesion = req.session;
+                routes.sesion.email = correo;
                 res.redirect('/inicio');
             } else {
                 let mensajeError = "El correo y la contraseña ingresados no coinciden";

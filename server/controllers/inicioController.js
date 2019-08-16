@@ -3,43 +3,49 @@ const dia = require('../models/DatosDelDia');
 const lamina = require('../models/Lamina');
 
 const funciones = require('./funciones');
+const routes = require('../routes/index');
 
 exports.inicioPage = (req, res) => {
-    var nombresUsuario = "";
-    var apellidosUsuario = "";
-    usuario.findAll({
-        where: {
-            usuario_id: global.usuarioID
-        }
-    }).then(function(user) {
-        nombresUsuario = user[0].nombres;
-        apellidosUsuario = user[0].apellidos;
-        global.nombreUsuario = nombresUsuario + " " + apellidosUsuario;
-    })
-
-    let fechaActual = funciones.obtenerFecha();
-    dia.findAll({
-        where: {
-            fecha: funciones.obtenerFecha()
-        }
-    })
-    .then(function(dia) {
-        console.log("Datos del dia");
-        console.log(dia.length);
-        // Si ya hay un registro en datos del dia en el dia actual, ya no se permite introducir mas datos
-        if(dia.length == 0) {
-            res.render("index", {
-                nombrePagina: 'Ingreso de datos',
-                nombreUsuario: global.nombreUsuario
+    console.log(routes.sesion);
+    if(routes.sesion.email == null) {
+        res.redirect("/login");
+    } else {
+        var nombresUsuario = "";
+        var apellidosUsuario = "";
+        usuario.findAll({
+            where: {
+                usuario_id: global.usuarioID
+            }
+        }).then(function(user) {
+            nombresUsuario = user[0].nombres;
+            apellidosUsuario = user[0].apellidos;
+            global.nombreUsuario = nombresUsuario + " " + apellidosUsuario;
+            let fechaActual = funciones.obtenerFecha();
+            dia.findAll({
+                where: {
+                    fecha: funciones.obtenerFecha()
+                }
             })
-        } else {
-            res.render("index/noForm.pug", {
-                nombrePagina: 'Ingreso de datos',
-                nombreUsuario: global.nombreUsuario
+            .then(function(dia) {
+                console.log("Datos del dia");
+                console.log(dia.length);
+                // Si ya hay un registro en datos del dia en el dia actual, ya no se permite introducir mas datos
+                if(dia.length == 0) {
+                    res.render("index", {
+                        nombrePagina: 'Ingreso de datos',
+                        nombreUsuario: global.nombreUsuario
+                    })
+                } else {
+                    res.render("index/noForm.pug", {
+                        nombrePagina: 'Ingreso de datos',
+                        nombreUsuario: global.nombreUsuario
+                    })
+                }
             })
-        }
-    })
-    .catch(error => console.log(error));
+            .catch(error => console.log(error));
+        })
+    }
+    
 }
 
 exports.agregarDatos = (req, res) => {

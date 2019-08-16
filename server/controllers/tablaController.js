@@ -1,7 +1,11 @@
 const lamina = require('../models/Lamina');
+const routes = require('../routes/index');
 
 exports.tablaPage = (req, res) => {
-    lamina.findAll()
+    if(routes.sesion.email == null){
+        res.redirect("login");
+    } else {
+        lamina.findAll()
         .then(function(laminas) {
             res.render('tables', {
                 nombrePagina: 'Datos',
@@ -10,4 +14,6 @@ exports.tablaPage = (req, res) => {
             })
         })
         .catch(error => console.log(error));
+    }
+    
 }

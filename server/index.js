@@ -1,5 +1,6 @@
 // importar express
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes/index.js');
@@ -19,6 +20,13 @@ app.set('view engine', 'pug');
 
 // añadir las vistas
 app.set('views', path.join(__dirname, './views'));
+
+// Configura la session para el login
+app.use(session({
+    secret: 'ssshhh',
+    saveUninitialized: true,
+    resave: true
+}));
 
 // cargar una carpeta estatica public
 app.use(express.static('public'));

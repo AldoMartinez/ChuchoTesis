@@ -2,9 +2,13 @@ const dia = require('../models/DatosDelDia');
 const lamina = require('../models/Lamina');
 
 const funciones = require('./funciones');
+const routes = require('../routes/index');
 
 exports.graficasPage = (req, res) => {
-    lamina.findAll()
+    if(routes.sesion.email == null) {
+        res.redirect("/login");
+    } else {
+        lamina.findAll()
         .then(function(laminas) {
             let fechaActual = funciones.obtenerFecha();
             dia.findAll()
@@ -19,4 +23,6 @@ exports.graficasPage = (req, res) => {
             .catch(error => console.log(error));
         })
         .catch(error => console.log(error));
+    }
+    
 }
