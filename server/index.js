@@ -3,10 +3,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes/index.js');
+const db = require('./config/database');
 
 require('dotenv').config({path: 'variables.env'});
-
-const db = require('./config/database');
 
 db.authenticate()
     .then(() => console.log("DB conectada"))
