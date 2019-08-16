@@ -9,32 +9,19 @@ block charts
         // Page Heading
         .d-sm-flex.align-items-center.justify-content-between.mb-4
             h1.h3.mb-2.text-gray-800 Gráficas
-            a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm(href='#')
-                i.fas.fa-download.fa-sm.text-white-50
-                |  Generar reporte
         // Content Row
         .row
             .col-xl-12.col-lg-10
                 // Area Chart
                 .card.shadow.mb-4
                     .card-header.py-3
-                        h6.m-0.font-weight-bold.text-primary Area Chart
+                        h6.m-0.font-weight-bold.text-primary Indice real vs Indice calculado
                     .card-body
                         .chart-area
                             canvas#myAreaChart
                         hr
                         |Comparación del índice calculado contra el índice real.
-                // Bar Chart
-                .card.shadow.mb-4
-                    .card-header.py-3
-                        h6.m-0.font-weight-bold.text-primary Bar Chart
-                    .card-body
-                        .chart-bar
-                            canvas#myBarChart
-                        hr
-                        |                   Styling for the bar chart can be found in the 
-                        code /js/demo/chart-bar-demo.js
-                        |  file.
+                
             // Donut Chart
             //- .col-xl-4.col-lg-5
             //-     .card.shadow.mb-4
