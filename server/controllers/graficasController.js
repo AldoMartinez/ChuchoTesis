@@ -10,6 +10,7 @@ exports.graficasPage = (req, res) => {
             dia.findAll()
             .then(function(dia) {
                 res.render('charts', {
+                    nombrePagina: 'Gráficas',
                     nombreUsuario: global.nombreUsuario,
                     laminas: laminas,
                     datosDelDia: dia

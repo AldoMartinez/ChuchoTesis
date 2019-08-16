@@ -1,5 +1,7 @@
 exports.registroPage = (req, res) => {
-    res.render('registro');
+    res.render('registro', {
+        nombrePagina: 'Registro'
+    });
 }
 
 exports.registroCuenta = (req, res) => {
@@ -27,6 +29,7 @@ exports.registroCuenta = (req, res) => {
     if(errores.length > 0) {
         // muestra la vista con errores
         res.render('registro', {
+            nombrePagina: 'Registro',
             errores,
             nombres,
             apellidos,

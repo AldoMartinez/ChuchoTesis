@@ -29,10 +29,12 @@ exports.inicioPage = (req, res) => {
         // Si ya hay un registro en datos del dia en el dia actual, ya no se permite introducir mas datos
         if(dia.length == 0) {
             res.render("index", {
+                nombrePagina: 'Ingreso de datos',
                 nombreUsuario: global.nombreUsuario
             })
         } else {
             res.render("index/noForm.pug", {
+                nombrePagina: 'Ingreso de datos',
                 nombreUsuario: global.nombreUsuario
             })
         }
@@ -98,6 +100,7 @@ exports.agregarDatos = (req, res) => {
             fecha
         })
         .then(lamina => res.render('index', {
+            nombrePagina: 'Ingreso de datos',
             successMessage
         }))
         .catch(error => console.log(error));

@@ -1,7 +1,9 @@
 const usuario = require('../models/Usuario');
 
 exports.loginControllerGet = (req, res) => {
-    res.render('login');
+    res.render('login', {
+        nombrePagina: 'Login'
+    });
 }
 
 exports.infoUsuario = (req, res) => {
@@ -22,6 +24,7 @@ exports.infoUsuario = (req, res) => {
             } else {
                 let mensajeError = "El correo y la contraseña ingresados no coinciden";
                 res.render('login', {
+                    nombrePagina: 'Login',
                     error: mensajeError,
                     correo
                 });
