@@ -33,6 +33,7 @@
     "bootstrap": "4.3.1",
     "chart.js": "2.8.0",
     "datatables.net-bs4": "1.10.19",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "jquery": "3.4.1",
     "jquery.easing": "^1.4.1",
@@ -44,7 +45,6 @@
   "devDependencies": {
     "browser-sync": "2.26.7",
     "del": "4.1.1",
-    "dotenv": "^8.0.0",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "6.1.0",
     "gulp-clean-css": "4.2.0",
