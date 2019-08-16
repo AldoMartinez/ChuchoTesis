@@ -3,7 +3,8 @@
   "name": "chucho-tesis",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon server"
+    "dev": "nodemon server",
+    "start": "node server"
   },
   "description": "An open source Bootstrap 4 admin theme.",
   "keywords": [
@@ -43,6 +44,7 @@
   "devDependencies": {
     "browser-sync": "2.26.7",
     "del": "4.1.1",
+    "dotenv": "^8.0.0",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "6.1.0",
     "gulp-clean-css": "4.2.0",

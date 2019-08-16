@@ -42,7 +42,7 @@ exports.inicioPage = (req, res) => {
 
 exports.agregarDatos = (req, res) => {
     // valida que todos los campos estén llenos
-    let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_paila, al_efectivo, hierro, velocidad} = req.body;
+    let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_paila, al_efectivo, velocidad} = req.body;
     let fecha = Date();
 
     let errores = [];
@@ -67,9 +67,6 @@ exports.agregarDatos = (req, res) => {
     if(!al_efectivo) {
         errores.push({"mensaje" : "Agrega el aluminio efectivo"});
     }
-    if(!hierro) {
-        errores.push({"mensaje" : "Agrega el hierro"});
-    }
     if(!velocidad) {
         errores.push({"mensaje" : "Agrega la velocidad"});
     }
@@ -84,7 +81,6 @@ exports.agregarDatos = (req, res) => {
             temperatura_cinta,
             temperatura_paila,
             al_efectivo,
-            hierro,
             velocidad
         })
     } else {
@@ -98,7 +94,6 @@ exports.agregarDatos = (req, res) => {
             temperatura_cinta,
             temperatura_paila,
             al_efectivo,
-            hierro,
             velocidad,
             fecha
         })

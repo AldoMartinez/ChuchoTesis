@@ -28,9 +28,6 @@ const lamina = db.define('lamina', {
     al_efectivo: {
         type: Sequelize.FLOAT
     },
-    hierro: {
-        type: Sequelize.FLOAT
-    },
     velocidad: {
         type: Sequelize.FLOAT
     },

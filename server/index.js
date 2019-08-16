@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes/index.js');
 
+require('dotenv').config({path: 'variables.env'});
 
 const db = require('./config/database');
 
@@ -35,4 +36,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Cargar las rutas
 app.use('/', routes());
 
-app.listen(3001);
+
+// Puerto y host para la app
+
+// Como el host '0.0.0.0' no es válido, heroku asigna un host automáticamente
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3001;
+
+app.listen(port, host, () => {
+    console.log("El servidor esta funcionando");
+});
