@@ -12,6 +12,7 @@ const tablaController = require('../controllers/tablaController');
 global.usuarioID = null;
 global.nombreUsuario = "";
 module.exports = function() {
+    router.get("/", loginController.loginControllerGet);
     router.get('/login', loginController.loginControllerGet);
     router.post('/login', loginController.infoUsuario);
     router.get('/registro', registroController.registroPage);
