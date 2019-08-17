@@ -2,6 +2,11 @@ const usuario = require('../models/Usuario');
 const routes = require('../routes/index');
 
 exports.loginControllerGet = (req, res) => {
+    var date = new Date("2019-02-13");
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    console.log(firstDay);
+    console.log(lastDay);
     routes.sesion = req.session;
     routes.sesion.email = null;
     res.render('login', {

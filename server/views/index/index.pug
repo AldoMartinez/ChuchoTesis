@@ -18,6 +18,11 @@ block index
                     .card-body
                         form.user(action='/inicio', method="POST")
                             .form-group
+                                select.form-control.form-control-user(name="linea_produccion", placeholder= "Linea")
+                                    option(value = "", disabled, selected)|Linea de producción
+                                    option(value = "1")|1
+                                    option(value = "2")|2
+                            .form-group
                                 input#exampleInputEmail.form-control.form-control-user(type='text', placeholder='PRAM', name="pram", value=pram)
                             .form-group.row
                                 .col-sm-4.mb-3.mb-sm-0

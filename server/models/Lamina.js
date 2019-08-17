@@ -39,5 +39,5 @@ const lamina = db.define('lamina', {
         freezeTableName: true
     }
 );
-
+module.exports = db;
 module.exports = lamina;

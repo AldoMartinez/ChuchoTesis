@@ -1,5 +1,5 @@
 extends ../layout/index
-block charts
+block rendimiento
     // Pasa el array de las laminas al javascript file
     script(type='text/javascript').                                                   
         var data = !{JSON.stringify(laminas)};
@@ -8,7 +8,7 @@ block charts
     .container-fluid
         // Page Heading
         .d-sm-flex.align-items-center.justify-content-between.mb-4
-            h1.h3.mb-2.text-gray-800 Gráficas
+            h1.h3.mb-2.text-gray-800 Rendimiento
         // Content Row
         .row
             .col-xl-12.col-lg-10

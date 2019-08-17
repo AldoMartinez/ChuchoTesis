@@ -5,12 +5,13 @@ const router = express.Router();
 const loginController = require('../controllers/loginController');
 const registroController = require('../controllers/registroController');
 const inicioController = require('../controllers/inicioController');
-const graficasController = require('../controllers/graficasController');
+const rendimientoController = require('../controllers/rendimientoController');
 const tablaController = require('../controllers/tablaController');
 
 //var usuarioID = null;
 global.usuarioID = null;
 global.nombreUsuario = "";
+global.lineaProduccion = 0;
 var sesion;
 module.exports = function() {
     router.get("/", loginController.loginControllerGet);
@@ -22,7 +23,8 @@ module.exports = function() {
     router.get('/inicio', inicioController.inicioPage);
     router.post('/inicio', inicioController.agregarDatos);
     router.post("/valoresFinales", inicioController.finalizarJornada);
-    router.get('/graficas', graficasController.graficasPage);
+    router.get('/rendimiento', rendimientoController.rendimientoPage);
     router.get('/tabla', tablaController.tablaPage);
+    router.post('/tabla', tablaController.registrosPorMes);
     return router
 }

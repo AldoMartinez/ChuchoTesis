@@ -20,6 +20,18 @@ block tables
             .card-header.py-3
                 h6.m-0.font-weight-bold.text-primary Datos de las láminas registradas
             .card-body
+                form.user(action="/tabla", method="POST")
+                    .row
+                        .col-lg-2.mb-4
+                            p Selecciona un mes
+                        .col-lg-4.mb-4
+                            input#seleccionMes.form-control(type='month', name="mes", value=fechaPicker)
+                        .col-lg-4.mb-4
+                            button.btn.btn-secondary.btn-icon-split(type='submit', value="Buscar")
+                                span.icon.text-white-50
+                                    i.fas.fa-search
+                                span.text|Buscar
+                hr
                 .table-responsive
                     table#dataTable.table.table-bordered(width='100%', cellspacing='0')
                         thead
@@ -34,7 +46,7 @@ block tables
                                 th Aluminio efectivo
                                 th Velocidad
                                 th Dia
-                        tbody
+                        tbody#registros
                             if(laminas)
                                 each lamina in laminas
                                     tr
@@ -48,6 +60,5 @@ block tables
                                         td=lamina.al_efectivo
                                         td=lamina.velocidad
                                         td=lamina.fecha
-                            
     // /.container-fluid
     // End of Main Content
