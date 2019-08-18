@@ -4,6 +4,18 @@
 //         alert("El aluminio es necesario");
 //     }
 // })
-var nombre = '!{laminas}';
+console.log(indicesExistentes);
 
-// console.log(data);
+const lineasSelect = document.getElementsByClassName('lp');
+
+for (let index = 0; index < lineasSelect.length; index++) {
+    const linea = lineasSelect[index];
+    indicesExistentes.forEach(indice => {
+        if(linea.value == indice.linea_id) {
+            linea.disabled = true;
+        }
+    });
+}
+
+lineasSelect[0].disabled = true;
+console.log(lineasSelect);

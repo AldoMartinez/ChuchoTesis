@@ -21,6 +21,9 @@ const dia = db.define('datos_del_dia', {
     },
     fecha: {
         type: Sequelize.DATEONLY
+    },
+    linea_id: {
+        type: Sequelize.INTEGER
     }
 },
     {

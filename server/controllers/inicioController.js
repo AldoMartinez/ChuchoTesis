@@ -1,15 +1,19 @@
+// Modelos
 const usuario = require('../models/Usuario');
 const dia = require('../models/DatosDelDia');
 const lamina = require('../models/Lamina');
+const lineaProduccion = require('../models/linea_produccion');
 
 const funciones = require('./funciones');
 const routes = require('../routes/index');
 
-exports.inicioPage = (req, res) => {
-    console.log(routes.sesion);
+const { Op } = Sequelize = require('sequelize');
+// GET
+exports.inicioPage = async (req, res) => {
     if(routes.sesion.email == null) {
         res.redirect("/login");
     } else {
+        const lineas_produccion = await lineaProduccion.findAll();
         var nombresUsuario = "";
         var apellidosUsuario = "";
         usuario.findAll({
@@ -23,17 +27,18 @@ exports.inicioPage = (req, res) => {
             let fechaActual = funciones.obtenerFecha();
             dia.findAll({
                 where: {
-                    fecha: funciones.obtenerFecha()
+                    fecha: funciones.obtenerFecha(),
+                    [Op.or]: [{linea_id: 1}, {linea_id: 2}, {linea_id: 3}] // Falta hacerlo dinámico
                 }
             })
-            .then(function(dia) {
-                console.log("Datos del dia");
-                console.log(dia.length);
+            .then(function(dias) {
                 // Si ya hay un registro en datos del dia en el dia actual, ya no se permite introducir mas datos
-                if(dia.length == 0) {
+                if(dias.length < lineas_produccion.length) {
                     res.render("index", {
                         nombrePagina: 'Ingreso de datos',
-                        nombreUsuario: global.nombreUsuario
+                        nombreUsuario: global.nombreUsuario,
+                        lineas_produccion,
+                        dias
                     })
                 } else {
                     res.render("index/noForm.pug", {
@@ -47,12 +52,11 @@ exports.inicioPage = (req, res) => {
     }
     
 }
-
-exports.agregarDatos = (req, res) => {
+// POST
+exports.agregarDatos = async (req, res) => {
     // valida que todos los campos estén llenos
-    let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_paila, al_efectivo, velocidad} = req.body;
+    let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_paila, al_efectivo, velocidad, linea_id} = req.body;
     let fecha = Date();
-
     let errores = [];
     if(!pram) {
         errores.push({"mensaje" : "Agrega la pram"});
@@ -78,7 +82,10 @@ exports.agregarDatos = (req, res) => {
     if(!velocidad) {
         errores.push({"mensaje" : "Agrega la velocidad"});
     }
-
+    if(!linea_id) {
+        errores.push({"mensaje" : "Selecciona una linea de producción"});
+    }
+    const lineas_produccion = await lineaProduccion.findAll();
     if(errores.length > 0) {
         res.render('index', {
             errores,
@@ -89,7 +96,8 @@ exports.agregarDatos = (req, res) => {
             temperatura_cinta,
             temperatura_paila,
             al_efectivo,
-            velocidad
+            velocidad,
+            lineas_produccion
         })
     } else {
         let successMessage = "Datos agregados correctamente";
@@ -103,19 +111,30 @@ exports.agregarDatos = (req, res) => {
             temperatura_paila,
             al_efectivo,
             velocidad,
-            fecha
+            fecha,
+            linea_id
         })
-        .then(lamina => res.render('index', {
-            nombrePagina: 'Ingreso de datos',
-            successMessage
-        }))
+        .then(async function(lamina) {
+            const dias = await dia.findAll({
+                where: {
+                    fecha: funciones.obtenerFecha(),
+                    [Op.or]: [{linea_id: 1}, {linea_id: 2}, {linea_id: 3}] // Falta hacerlo dinámico
+                }
+            });
+            res.render('index', {
+                nombrePagina: 'Ingreso de datos',
+                successMessage,
+                lineas_produccion,
+                dias
+            });
+        })
         .catch(error => console.log(error));
     }
     console.log(req.body);
 }
 
 exports.finalizarJornada = (req, res) => {
-    let {peso_aluminio, peso_hierro, consumo_zinc, dross_real} = req.body;
+    let {peso_aluminio, peso_hierro, consumo_zinc, dross_real, linea_id} = req.body;
     let fecha = Date();
 
     dia.create({
@@ -123,7 +142,8 @@ exports.finalizarJornada = (req, res) => {
         peso_hierro,
         consumo_zinc,
         dross_real,
-        fecha
+        fecha,
+        linea_id
     })
     .then(dia => res.redirect("/inicio"))
     .catch(error => console.log(error));

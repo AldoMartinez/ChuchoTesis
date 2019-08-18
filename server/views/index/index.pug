@@ -1,5 +1,9 @@
 extends ../layout/index
 block index
+    // Pasa el array de las laminas al javascript file
+    script(type='text/javascript').                                                  
+        var indicesExistentes = !{JSON.stringify(dias)};
+        var lineasProduccion = !{JSON.stringify(lineas_produccion)};
     .container-fluid
         // Page Heading
         .d-sm-flex.align-items-center.justify-content-between.mb-4
@@ -18,28 +22,29 @@ block index
                     .card-body
                         form.user(action='/inicio', method="POST")
                             .form-group
-                                select.form-control.form-control-user(name="linea_produccion", placeholder= "Linea")
+                                select.form-control.form-control-user(name="linea_id", placeholder= "Linea", required)
                                     option(value = "", disabled, selected)|Linea de producción
-                                    option(value = "1")|1
-                                    option(value = "2")|2
+                                    if(lineas_produccion)
+                                        each linea in lineas_produccion
+                                            option(value=linea.linea_id, class='lp')=linea.nombre
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='text', placeholder='PRAM', name="pram", value=pram)
+                                input#exampleInputEmail.form-control.form-control-user(type='text', placeholder='PRAM', name="pram", value=pram, required)
                             .form-group.row
                                 .col-sm-4.mb-3.mb-sm-0
-                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Ancho', name="ancho", value=ancho, step=0.001)
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Ancho', name="ancho", value=ancho, step=0.001, required)
                                 .col-sm-4.mb-3.mb-sm-0
-                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Largo', name="largo", value=largo, step=0.001)
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Largo', name="largo", value=largo, step=0.001, required)
                                 .col-sm-4
-                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Espesor', name="espesor", value=espesor, step=0.001)
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Espesor', name="espesor", value=espesor, step=0.001, required)
                             .form-group.row
                                 .col-sm-6.mb-3.mb-sm-0
-                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Temperatura cinta', name="temperatura_cinta", value=temperatura_cinta, step=0.001)
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Temperatura cinta', name="temperatura_cinta", value=temperatura_cinta, step=0.001, required)
                                 .col-sm-6
-                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Temperatura paila', name="temperatura_paila", value=temperatura_paila, step=0.001)
+                                    input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Temperatura paila', name="temperatura_paila", value=temperatura_paila, step=0.001, required)
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Aluminio efectivo', name="al_efectivo", value=al_efectivo, step=0.001)
+                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Aluminio efectivo', name="al_efectivo", value=al_efectivo, step=0.001, required)
                             .form-group
-                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Velocidad', name="velocidad", value=velocidad, step=0.001)
+                                input#exampleInputEmail.form-control.form-control-user(type='number', placeholder='Velocidad', name="velocidad", value=velocidad, step=0.001, required)
                             .form-group.text-center
                                 button.btn.btn-success.btn-icon-split(type="submit", value="Guardar datos")
                                     span.icon.text-white-50
@@ -63,6 +68,12 @@ block index
                         span(aria-hidden='true') ×
                 .modal-body
                     form#finalJornada.user(action='/valoresFinales', method="POST")
+                        .form-group
+                            select.form-control.form-control-user(name="linea_id", placeholder= "Linea", required)
+                                option(value = "", disabled, selected)|Linea de producción
+                                    if(lineas_produccion)
+                                        each linea in lineas_produccion
+                                            option(value=linea.linea_id, class= 'lp')=linea.nombre
                         .form-group.row
                             .col-sm-6.mb-3.mb-sm-0
                                 input#peso_aluminio.form-control.form-control-user(type='number', placeholder='Al wt.', name="peso_aluminio", value=ancho, step=0.001, required)

@@ -11,9 +11,13 @@ ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordio
             i.fas.fa-fw.fa-tachometer-alt
             span Ingreso de datos
     li#rendimientoSB.nav-item(class = (ruta === '/rendimiento' ? 'active' : ''))
-            a.nav-link(href='/rendimiento')
-                i.fas.fa-fw.fa-tachometer-alt
-                span Rendimiento
+        a.nav-link(href='/rendimiento')
+            i.fas.fa-fw.fa-tachometer-alt
+            span Rendimiento
+    li#lineas_produccionSB.nav-item(class = (ruta === '/lineas_produccion' ? 'active' : ''))
+        a.nav-link(href='/lineas_produccion')
+            i.fas.fa-fw.fa-tachometer-alt
+            span Lineas de producción
     // Divider
     hr.sidebar-divider.my-0
     // Nav Item - Gráfica

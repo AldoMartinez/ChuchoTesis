@@ -33,6 +33,9 @@ const lamina = db.define('lamina', {
     },
     fecha: {
         type: Sequelize.DATE
+    },
+    linea_id: {
+        type: Sequelize.INTEGER
     }
 },
     {

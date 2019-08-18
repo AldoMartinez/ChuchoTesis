@@ -7,6 +7,7 @@ const registroController = require('../controllers/registroController');
 const inicioController = require('../controllers/inicioController');
 const rendimientoController = require('../controllers/rendimientoController');
 const tablaController = require('../controllers/tablaController');
+const lineasProduccionController = require('../controllers/lineasProduccionController');
 
 //var usuarioID = null;
 global.usuarioID = null;
@@ -26,5 +27,7 @@ module.exports = function() {
     router.get('/rendimiento', rendimientoController.rendimientoPage);
     router.get('/tabla', tablaController.tablaPage);
     router.post('/tabla', tablaController.registrosPorMes);
+    router.get('/lineas_produccion', lineasProduccionController.verLineasProduccion);
+    router.post('/agregarLinea', lineasProduccionController.agregarLineaProduccion);
     return router
 }

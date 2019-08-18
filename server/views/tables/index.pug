@@ -37,6 +37,7 @@ block tables
                         thead
                             tr
                                 th id
+                                th Linea producción
                                 th PRAM
                                 th Ancho
                                 th Largo
@@ -51,6 +52,7 @@ block tables
                                 each lamina in laminas
                                     tr
                                         td=lamina.lamina_id
+                                        td=lamina.linea_produccion.nombre
                                         td=lamina.pram
                                         td=lamina.ancho
                                         td=lamina.largo
