@@ -1,3 +1,5 @@
+const sequelize = require('../config/database');
+
 const dia = require('../models/DatosDelDia');
 const lamina = require('../models/Lamina');
 const lineaProduccion = require('../models/linea_produccion');
@@ -6,14 +8,15 @@ const funciones = require('./funciones');
 const routes = require('../routes/index');
 
 const { Op } = Sequelize = require('sequelize');
+
+var añoMes = funciones.obtenerAñoMes();
+añoMes = funciones.añoMesSinGuion(añoMes);
 // Query para obtener los registros del mes actual
 let query = {
     where: {
-        fecha: {
-            [Op.gte]: new Date('2019-08-01'),
-            [Op.lt]: new Date('2019-08-31')
-        }
-    }
+        [Op.and]: sequelize.literal("EXTRACT(YEAR_MONTH from fecha) = '" + añoMes + "'")
+    },
+    order: [['fecha', 'ASC']]
 };
 
 exports.rendimientoPage = (req, res) => {

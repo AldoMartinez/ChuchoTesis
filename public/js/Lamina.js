@@ -1,3 +1,4 @@
+
 function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila, fecha) {
     this.pram = pram;
     this.largo = largo;
@@ -92,12 +93,13 @@ function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila
 }
 
 class DatoDelDia {
-    constructor(peso_aluminio, peso_hierro, consumo_zinc, dross_real, fecha) {
+    constructor(peso_aluminio, peso_hierro, consumo_zinc, dross_real, fecha, linea_id) {
         this.peso_aluminio = peso_aluminio;
         this.peso_hierro = peso_hierro;
         this.consumo_zinc = consumo_zinc;
         this.dross_real = dross_real;
         this.fecha = fecha;
+        this.linea_id = linea_id;
         // Suma de las q en kg del dia
         this.qTotal = 0;
         this.dross_calculado = 0;
@@ -148,21 +150,14 @@ class DatoDelDia {
     }
 }
 
-class PuntoCartesiano {
-    constructor(fecha, valor) {
-        this.x = fecha;
-        this.y = valor;
-    }
-}
-
 var datosFinalesPorDia = [];
-
+// Asigna cada dato de una lamina a su correspondiente indice (tomando en cuenta la linea de producción)
 datosDelDia.forEach(dato => {
-    var datoDelDia = new DatoDelDia(dato.peso_aluminio, dato.peso_hierro, dato.consumo_zinc, dato.dross_real, dato.fecha);
+    var datoDelDia = new DatoDelDia(dato.peso_aluminio, dato.peso_hierro, dato.consumo_zinc, dato.dross_real, dato.fecha, dato.linea_id);
 
     // Crea un objeto Lamina si las fechas coinciden
     data.forEach(lamina => {
-        if(datoDelDia.fecha == lamina.fecha) {
+        if(datoDelDia.fecha == lamina.fecha && datoDelDia.linea_id == lamina.linea_id) {
             var laminaObject = new Lamina(lamina.pram,lamina.ancho, lamina.largo, lamina.espesor, lamina.velocidad, lamina.al_efectivo, lamina.temperatura_cinta, lamina.temperatura_paila, lamina.fecha);
             datoDelDia.sumarQ(laminaObject.q_kg);
             datoDelDia.sumaArea(laminaObject.area);
@@ -174,22 +169,11 @@ datosDelDia.forEach(dato => {
     datosFinalesPorDia.push(datoDelDia);
 });
 
-console.log(datosFinalesPorDia);
+// Obtener linea de producción seleccionada
+const lpSeleccionada = document.getElementById('lineaProduccionS');
 
 // Acomodo de datos para la gráfica
-var fechas = [];
-var valores = [];
-
-datosFinalesPorDia.forEach(datoPorDia => {
-    let fecha = new Date(datoPorDia.fecha);
-    fechas.push(fecha);
-    valores.push(datoPorDia.indiceCalculado);
-    // let coordenada = new PuntoCartesiano(fecha, datoPorDia.indiceCalculado);
-    // chartData.push(coordenada);
-});
-
-console.log(fechas);
-
+var [fechas, valores] = asignarValores();
 
 // DEPRECATED
 window.randomScalingFactor = function() {
@@ -197,14 +181,7 @@ window.randomScalingFactor = function() {
     return valor
 };
 var timeFormat = 'MM/DD/YYYY';
-function newDate(days) {
-    let fecha = moment().add(days, 'd').toDate();
-    console.log(fecha);
-    return fecha;
-}
-function newDateString(days) {
-    return moment().add(days, 'd').format(timeFormat);
-}
+
 var color = Chart.helpers.color;
 var config = {
     type: 'line',
@@ -262,8 +239,8 @@ var config = {
                 time: {
                     unit: 'day',
                     parser: timeFormat,
-                    round: 'day'
-                    // tooltipFormat: 'll HH:mm'
+                    round: 'day',
+                    tooltipFormat: 'll'
                 }
             }],
             yAxes: [{
@@ -286,3 +263,28 @@ window.onload = function() {
     var ctx = document.getElementById('myAreaChart').getContext('2d');
     window.myLine = new Chart(ctx, config);
 };
+
+function asignarValores() {
+    let fechas = [];
+    let valores = [];
+    
+    this.datosFinalesPorDia.forEach(datoPorDia => {
+        if(datoPorDia.linea_id == lpSeleccionada.value) {
+            let fecha = new Date(datoPorDia.fecha);
+            fechas.push(fecha);
+            // Indice calcuado con 4 digitos
+            let icCuatroDigitos = datoPorDia.indiceCalculado.toFixed(4);
+            valores.push(icCuatroDigitos);
+        }
+    });
+    return [fechas, valores];
+}
+// Cambia los valores de la grafica cuando se selecciona otra linea de producción
+lpSeleccionada.addEventListener("change", function() {
+    let [fechas, valores] = asignarValores();
+    console.log(valores);
+    console.log(fechas);
+    config.data.labels = fechas;
+    config.data.datasets[0].data = valores;
+    window.myLine.update();
+});

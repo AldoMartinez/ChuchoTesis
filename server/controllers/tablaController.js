@@ -6,7 +6,7 @@ const routes = require('../routes/index');
 const funciones = require('./funciones');
 
 const { Op } = Sequelize = require('sequelize');
-
+// GET
 exports.tablaPage = async (req, res) => {
     if(routes.sesion.email == null){
         res.redirect("login");
@@ -27,6 +27,7 @@ exports.tablaPage = async (req, res) => {
     }
     
 }
+// Al cambar el mes
 exports.registrosPorMes = async (req, res) => {
     let { mes } = req.body;
     let añoMes = funciones.añoMesSinGuion(mes);
