@@ -17,23 +17,16 @@ block rendimiento
                     .card-header.py-3
                         h6.m-0.font-weight-bold.text-primary Indice real vs Indice calculado
                     .card-body
+                        .row.justify-content-center.align-self-center
+                            .col-xl-3.col-lg-4.mb-2.justify-content-center.align-self-center
+                                p.text-center Linea de producción
+                            .col-xl-3.col-lg-4.mb-2.justify-content-center.align-self-center
+                                select.form-control.form-control-user(name="linea_id", placeholder= "Linea", required)
+                                    option(value = "", disabled, selected)|Linea de producción
+                                    if(lineas_produccion)
+                                        each linea in lineas_produccion
+                                            option(value=linea.linea_id, class='lp')=linea.nombre
                         .chart-area
                             canvas#myAreaChart
                         hr
                         |Comparación del índice calculado contra el índice real.
-                
-            // Donut Chart
-            //- .col-xl-4.col-lg-5
-            //-     .card.shadow.mb-4
-            //-         // Card Header - Dropdown
-            //-         .card-header.py-3
-            //-             h6.m-0.font-weight-bold.text-primary Donut Chart
-            //-         // Card Body
-            //-         .card-body
-            //-             .chart-pie.pt-4
-            //-                 canvas#myPieChart
-            //-             hr
-            //-             |                   Styling for the donut chart can be found in the 
-            //-             code /js/demo/chart-pie-demo.js
-            //-             |  file.
-    // /.container-fluid

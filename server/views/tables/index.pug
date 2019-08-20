@@ -11,27 +11,23 @@ block tables
             a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm(href='#')
                 i.fas.fa-download.fa-sm.text-white-50
                 |  Generar reporte
-        //- p.mb-4
-        //-     | DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the 
-        //-     a(target='_blank', href='https://datatables.net') official DataTables documentation
-        //-     | .
         // DataTales Example
         .card.shadow.mb-4
             .card-header.py-3
                 h6.m-0.font-weight-bold.text-primary Datos de las láminas registradas
             .card-body
                 form.user(action="/tabla", method="POST")
-                    .row
-                        .col-lg-2.mb-4
-                            p Selecciona un mes
-                        .col-lg-4.mb-4
+                    .row.justify-content-center.align-self-center
+                        .col-lg-2.mb-2.justify-content-center.align-self-center
+                            p.text-center Selecciona un mes
+                        .col-lg-4.mb-2.justify-content-center.align-self-center
                             input#seleccionMes.form-control(type='month', name="mes", value=fechaPicker)
-                        .col-lg-4.mb-4
-                            button.btn.btn-secondary.btn-icon-split(type='submit', value="Buscar")
+                        .col-lg-2.mb-2.justify-content-center.align-self-center
+                            button.btn.btn-secondary.btn-icon-split.btn-buscar(type='submit', value="Buscar")
                                 span.icon.text-white-50
                                     i.fas.fa-search
                                 span.text|Buscar
-                hr
+                
                 .table-responsive
                     table#dataTable.table.table-bordered(width='100%', cellspacing='0')
                         thead

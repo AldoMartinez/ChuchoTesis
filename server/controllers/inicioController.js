@@ -14,6 +14,7 @@ exports.inicioPage = async (req, res) => {
         res.redirect("/login");
     } else {
         const lineas_produccion = await lineaProduccion.findAll();
+        const current_lp = funciones.crearArrayLP(lineas_produccion);
         var nombresUsuario = "";
         var apellidosUsuario = "";
         usuario.findAll({
@@ -28,7 +29,7 @@ exports.inicioPage = async (req, res) => {
             dia.findAll({
                 where: {
                     fecha: funciones.obtenerFecha(),
-                    [Op.or]: [{linea_id: 1}, {linea_id: 2}, {linea_id: 3}] // Falta hacerlo dinámico
+                    [Op.or]: current_lp 
                 }
             })
             .then(function(dias) {
@@ -115,10 +116,11 @@ exports.agregarDatos = async (req, res) => {
             linea_id
         })
         .then(async function(lamina) {
+            const current_lp = funciones.crearArrayLP(lineas_produccion);
             const dias = await dia.findAll({
                 where: {
                     fecha: funciones.obtenerFecha(),
-                    [Op.or]: [{linea_id: 1}, {linea_id: 2}, {linea_id: 3}] // Falta hacerlo dinámico
+                    [Op.or]: current_lp
                 }
             });
             res.render('index', {

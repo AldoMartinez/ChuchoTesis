@@ -25,3 +25,13 @@ exports.añoMesSinGuion = function(fecha) {
     let nuevaFecha = fecha.replace("-", "");
     return nuevaFecha;
 }
+
+// Crea un array con los objetos de linea de producción
+exports.crearArrayLP = function (consultaBD){
+    var lp = [];
+    consultaBD.forEach(linea => {
+        const linea_produccion = {linea_id: linea.linea_id};
+        lp.push(linea_produccion);
+    });
+    return lp;
+}

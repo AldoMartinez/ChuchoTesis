@@ -2,3 +2,7 @@ div.card-body.erroresMS {
     padding: 0.25rem;
     font-size: 0.8rem;
 }
+
+.btn-buscar {
+    padding-right: 20%;
+}
