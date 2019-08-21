@@ -10,6 +10,18 @@ block rendimiento
         // Page Heading
         .d-sm-flex.align-items-center.justify-content-between.mb-4
             h1.h3.mb-2.text-gray-800 Rendimiento
+        .row
+            .col-lg-7.mb-4.offset-lg-3
+                .card.border-left-primary.shadow.h-100.py-2
+                    .card-body
+                        .row.no-gutters.align-items-center
+                            .col-lg-4.offset-lg-1.mb-2.justify-content-center.align-self-center
+                                h5.text-center Linea de producción
+                            .col-lg-6.mb-2.justify-content-center.align-self-center
+                                select#lineaProduccionS.form-control.form-control-user(name="linea_id", placeholder= "Linea", required)
+                                    if(lineas_produccion)
+                                        each linea in lineas_produccion
+                                            option(value=linea.linea_id, class='lp')=linea.nombre
         // Content Row
         .row
             .col-xl-12.col-lg-10
@@ -18,15 +30,30 @@ block rendimiento
                     .card-header.py-3
                         h6.m-0.font-weight-bold.text-primary Indice real vs Indice calculado
                     .card-body
-                        .row.justify-content-center.align-self-center
-                            .col-xl-3.col-lg-4.mb-2.justify-content-center.align-self-center
-                                p.text-center Linea de producción
-                            .col-xl-3.col-lg-4.mb-2.justify-content-center.align-self-center
-                                select#lineaProduccionS.form-control.form-control-user(name="linea_id", placeholder= "Linea", required)
-                                    if(lineas_produccion)
-                                        each linea in lineas_produccion
-                                            option(value=linea.linea_id, class='lp')=linea.nombre
                         .chart-area
-                            canvas#myAreaChart
+                            canvas#indicesChart
                         hr
                         |Comparación del índice calculado contra el índice real.
+        .row
+            .col-xl-12.col-lg-10
+                // Bar Chart
+                .card.shadow.mb-4
+                    .card-header.py-3
+                        h6.m-0.font-weight-bold.text-primary Dross
+                    .card-body
+                        .chart-area
+                            canvas#drossCalculadoChart
+                        hr
+                        |Dross recolectado en cada día
+        .row
+            .col-xl-12.col-lg-10
+                // Bar Chart
+                .card.shadow.mb-4
+                    .card-header.py-3
+                        h6.m-0.font-weight-bold.text-primary Área
+                    .card-body
+                        .chart-area
+                            canvas#areaChartRendimiento
+                        hr
+                        |Área en cada día
+

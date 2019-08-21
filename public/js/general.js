@@ -1,10 +1,3 @@
-// $("#finalJornada").submit(function(e) {
-//     e.preventDefault();
-//     if( $("#peso_aluminio").val() == "") {
-//         alert("El aluminio es necesario");
-//     }
-// })
-
 
 const lineasSelect = document.getElementsByClassName('lp');
 
@@ -17,3 +10,5 @@ for (let index = 0; index < lineasSelect.length; index++) {
         }
     });
 }
+
+
