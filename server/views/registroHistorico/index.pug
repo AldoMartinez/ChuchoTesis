@@ -1,0 +1,48 @@
+extends ../layout/index
+block registroHistorico
+    // Pasa el array de las laminas al javascript file
+    script(type='text/javascript').                                                   
+        var data = !{JSON.stringify(laminas)};
+        var datosDelDia = !{JSON.stringify(datosDelDia)};
+        var lineas_produccion = !{JSON.stringify(lineas_produccion)};
+    // Begin Page Content
+    .container-fluid
+        // Page Heading
+        .d-sm-flex.align-items-center.justify-content-between.mb-4
+            h1.h3.mb-2.text-gray-800 Registro Histórico
+        form#indicesComparacionForm
+            .row
+                .col-lg-12.mb-4
+                    .card.border-left-primary.shadow.h-100.py-2
+                        .card-body
+                            .row.no-gutters.align-items-center
+                                .col-lg-3.justify-content-center.align-self-center.mb-3.mr-1
+                                    h6 Selecciona los meses a comparar
+                                .col-lg-3.justify-content-center.align-self-center.mb-3.mr-2
+                                    input#mes1.form-control.form-control-user(name="mes1", type="month", required)
+                                .col-lg-3.justify-content-center.align-self-center.mb-3
+                                    input#mes2.form-control.form-control-user(name="mes2", type="month", required)
+                            .row.no-gutters.align-items-center
+                                .col-lg-3.mb-2.justify-content-center.align-self-center.mb-3.mr-1
+                                    h6 Linea de producción
+                                .col-lg-3.mb-2.justify-content-center.align-self-center.mb-3
+                                    select#lpRH.form-control.form-control-user(name="linea_id", placeholder= "Linea", required)
+                                        option(value="", disabled, selected)|Linea de producción
+                                        if(lineas_produccion)
+                                            each linea in lineas_produccion
+                                                option(value=linea.linea_id, class='lp')=linea.nombre
+                            .row
+                                .col-lg-6.offset-lg-3
+                                    button.btn.btn-success(type="submit", style='width: 100%')|Mostrar datos
+            
+            
+        .row
+            .col-xl-12.col-lg-10
+                .card.shadow.mb-4
+                    .card-header.py-3
+                        h6.m-0.font-weight-bold.text-primary Indices reales
+                    .card-body
+                        .chart-area
+                            canvas#indicesRealesChart
+                        hr
+                        |Comparación de los indices reales por mes

@@ -1,38 +1,44 @@
 
-var datosFinalesPorDia = [];
+var indicesAsignados = asignarLaminasIndices(datosDelDia, data);
 // Asigna cada dato de una lamina a su correspondiente indice (tomando en cuenta la linea de producción)
-datosDelDia.forEach(dato => {
-    var datoDelDia = new DatoDelDia(dato.peso_aluminio, dato.peso_hierro, dato.consumo_zinc, dato.dross_real, dato.fecha, dato.linea_id);
+function asignarLaminasIndices(indices, laminas) {
+    var indicesArray = [];
+    indices.forEach(dato => {
+        var datoDelDia = new DatoDelDia(dato.peso_aluminio, dato.peso_hierro, dato.consumo_zinc, dato.dross_real, dato.fecha, dato.linea_id);
+    
+        // Crea un objeto Lamina si las fechas coinciden
+        laminas.forEach(lamina => {
+            if(datoDelDia.fecha == lamina.fecha && datoDelDia.linea_id == lamina.linea_id) {
+                var laminaObject = new Lamina(lamina.pram,lamina.ancho, lamina.largo, lamina.espesor, lamina.velocidad, lamina.al_efectivo, lamina.temperatura_cinta, lamina.temperatura_paila, lamina.fecha);
+                datoDelDia.sumarQ(laminaObject.q_kg);
+                datoDelDia.sumaArea(laminaObject.area);
+            }
+        })
+        datoDelDia.obtenerDrossCalculado();
+        datoDelDia.obtenerIndiceCalculado();
+        datoDelDia.obtenerIndiceReal();
+        indicesArray.push(datoDelDia);
+    });
+    return indicesArray;
+}
 
-    // Crea un objeto Lamina si las fechas coinciden
-    data.forEach(lamina => {
-        if(datoDelDia.fecha == lamina.fecha && datoDelDia.linea_id == lamina.linea_id) {
-            var laminaObject = new Lamina(lamina.pram,lamina.ancho, lamina.largo, lamina.espesor, lamina.velocidad, lamina.al_efectivo, lamina.temperatura_cinta, lamina.temperatura_paila, lamina.fecha);
-            datoDelDia.sumarQ(laminaObject.q_kg);
-            datoDelDia.sumaArea(laminaObject.area);
-        }
-    })
-    datoDelDia.obtenerDrossCalculado();
-    datoDelDia.obtenerIndiceCalculado();
-    datoDelDia.obtenerIndiceReal();
-    datosFinalesPorDia.push(datoDelDia);
-});
 
 // Obtener linea de producción seleccionada
 const lpSeleccionada = document.getElementById('lineaProduccionS');
 
 // Acomodo de datos para la gráfica
-var [fechas, valores, indiceReal, drossCalculado, area] = asignarValores();
-
-function asignarValores() {
+var [fechas, valores, indiceReal, drossCalculado, area] = asignarValores(indicesAsignados, lpSeleccionada);
+// Opcion 0 -> Retorna todos los array's
+// Cualquier otra opcion -> retorna solo los indices reales
+function asignarValores(indicesAsignados, lineaProduccion, opcion=0) {
     let fechas = [];
     let valores = [];
     let indiceReal = [];
     let drossCalculado = [];
     let area = [];
     
-    this.datosFinalesPorDia.forEach(datoPorDia => {
-        if(datoPorDia.linea_id == lpSeleccionada.value) {
+    indicesAsignados.forEach(datoPorDia => {
+        if(datoPorDia.linea_id == lineaProduccion.value) {
             let fecha = new Date(datoPorDia.fecha); // Retorna la fecha con un dia anterior
             fecha.setDate(fecha.getDate() + 1); // Añade un dia a la fecha
             fechas.push(fecha);
@@ -51,11 +57,16 @@ function asignarValores() {
             
         }
     });
-    return [fechas, valores, indiceReal, drossCalculado, area];
+    if(opcion == 0) {
+        return [fechas, valores, indiceReal, drossCalculado, area];
+    } else {
+        return indiceReal;
+    }
+    
 }
 // Cambia los valores de la grafica cuando se selecciona otra linea de producción
 lpSeleccionada.addEventListener("change", function() {
-    let [fechas, valores, drossCalculado, area] = asignarValores();
+    let [fechas, valores, drossCalculado, area] = asignarValores(indicesAsignados, lpSeleccionada);
     // Indice calculado vs Indice real Chart
     config.data.labels = fechas;
     config.data.datasets[0].data = valores;

@@ -8,6 +8,7 @@ const inicioController = require('../controllers/inicioController');
 const rendimientoController = require('../controllers/rendimientoController');
 const tablaController = require('../controllers/tablaController');
 const lineasProduccionController = require('../controllers/lineasProduccionController');
+const registroHistoricoController = require('../controllers/registroHistoricoController');
 
 //var usuarioID = null;
 global.usuarioID = null;
@@ -29,5 +30,7 @@ module.exports = function() {
     router.post('/tabla', tablaController.registrosPorMes);
     router.get('/lineas_produccion', lineasProduccionController.verLineasProduccion);
     router.post('/agregarLinea', lineasProduccionController.agregarLineaProduccion);
+    router.get('/registro_historico', registroHistoricoController.registroHistoricoGet);
+    router.get("/consultaIndicesReales/:mes1&:mes2&:lp", registroHistoricoController.consultarDatos);
     return router
 }
