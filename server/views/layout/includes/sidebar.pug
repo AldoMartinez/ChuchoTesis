@@ -2,13 +2,14 @@
 ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordion
     // Sidebar - Brand
     a.sidebar-brand.d-flex.align-items-center.justify-content-center(href='/inicio')
-        .sidebar-brand-text.mx-3 Chucho
+        img.sidebar-brand-icon(src="../../../img/ternium-logo.png", style="width:40%")
+        img.sidebar-brand-text.mx-3(src="../../../img/ternium2.jpg", style='width:65%;height:80%')
     // Divider
     hr.sidebar-divider.my-0
     // Nav Item - Ingreso de datos
     li#inicioSB.nav-item(class = (ruta === '/inicio' ? 'active' : ''))
         a.nav-link(href='/inicio')
-            i.fas.fa-fw.fa-tachometer-alt
+            i.fas.fa-clipboard-list
             span Ingreso de datos
     li#rendimientoSB.nav-item(class = (ruta === '/rendimiento' ? 'active' : ''))
         a.nav-link(href='/rendimiento')
@@ -16,14 +17,14 @@ ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordio
             span Rendimiento
     li#lineas_produccionSB.nav-item(class = (ruta === '/lineas_produccion' ? 'active' : ''))
         a.nav-link(href='/lineas_produccion')
-            i.fas.fa-fw.fa-tachometer-alt
+            i.fas.fa-industry
             span Lineas de producción
     // Divider
     hr.sidebar-divider.my-0
     // Nav Item - registro_historico
     li#graficasSB.nav-item(class = (ruta === '/registro_historico' ? 'active' : ''))
         a.nav-link(href='/registro_historico')
-            i.fas.fa-fw.fa-tachometer-alt
+            i.fas.fa-history
             span Registro Histórico
     // Nav Item - Tables
     li#tablaSB.nav-item(class = (ruta === '/tabla' ? 'active' : ''))
