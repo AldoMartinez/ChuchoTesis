@@ -1,3 +1,5 @@
+const usuario = require('../models/Usuario');
+
 exports.registroPage = (req, res) => {
     res.render('registro', {
         nombrePagina: 'Registro'
