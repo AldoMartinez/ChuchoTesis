@@ -25,7 +25,6 @@ exports.rendimientoPage = (req, res) => {
     } else {
         lamina.findAll(query)
         .then(function(laminas) {
-            let fechaActual = funciones.obtenerFecha();
             dia.findAll(query)
             .then(async function(dia) {
                 const lineas_produccion = await lineaProduccion.findAll();

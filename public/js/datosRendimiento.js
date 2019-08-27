@@ -29,7 +29,7 @@ const lpSeleccionada = document.getElementById('lineaProduccionS');
 // Acomodo de datos para la gráfica
 var [fechas, valores, indiceReal, drossCalculado, area] = asignarValores(indicesAsignados, lpSeleccionada);
 // Opcion 0 -> Retorna todos los array's
-// Cualquier otra opcion -> retorna solo los indices reales
+// Cualquier otra opcion -> retorna solo los indices reales y las fechas
 function asignarValores(indicesAsignados, lineaProduccion, opcion=0) {
     let fechas = [];
     let valores = [];
@@ -60,13 +60,13 @@ function asignarValores(indicesAsignados, lineaProduccion, opcion=0) {
     if(opcion == 0) {
         return [fechas, valores, indiceReal, drossCalculado, area];
     } else {
-        return indiceReal;
+        return [fechas, indiceReal];
     }
     
 }
 // Cambia los valores de la grafica cuando se selecciona otra linea de producción
 lpSeleccionada.addEventListener("change", function() {
-    let [fechas, valores, drossCalculado, area] = asignarValores(indicesAsignados, lpSeleccionada);
+    let [fechas, valores, indiceReal, drossCalculado, area] = asignarValores(indicesAsignados, lpSeleccionada);
     // Indice calculado vs Indice real Chart
     config.data.labels = fechas;
     config.data.datasets[0].data = valores;

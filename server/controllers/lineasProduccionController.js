@@ -2,7 +2,6 @@ const lineaProduccion = require('../models/linea_produccion');
 
 exports.verLineasProduccion = async(req, res) => {
     const lineas = await lineaProduccion.findAll();
-    console.log(lineas);
     res.render('lineasProduccion', {
         nombrePagina: 'Lineas de producción',
         lineas

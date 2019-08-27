@@ -1,10 +1,3 @@
-// fetch("/consultaIndicesReales", {method: "POST"})
-//     .then(function(res) {
-//         return res.json();
-//     })
-//     .then(function(data) {
-//         console.log(data);
-//     });
 
 const mes1 = document.getElementById('mes1');
 const mes2 = document.getElementById('mes2');
@@ -27,16 +20,17 @@ form.addEventListener('submit', function(e) {
             return res.json();
         })
         .then(function(data) {
-            console.log(data);
+            const indicesAsignadosMes1 = asignarLaminasIndices(data.indices1, data.laminas1);
+            const indicesAsignadosMes2 = asignarLaminasIndices(data.indices2, data.laminas2);
+            let [fechasMes1, indicesRealesMes1] = asignarValores(indicesAsignadosMes1, lineaProduccionSeleccionada, 1);
+            let [fechasMes2, indicesRealesMes2] = asignarValores(indicesAsignadosMes2, lineaProduccionSeleccionada, 1);
+            
         })
         .catch(error => console.log(error));
 });
 
 // Valida que los campos no estén vacíos del Registro Historico
 function validarCamposRH() {
-    console.log(mes1.value);
-    console.log(mes2.value);
-    console.log(lineaProduccionSeleccionada.value);
     if(mes1.value == "" || mes2.value == "" || lineaProduccionSeleccionada.value == "") {
         return false
     }
@@ -48,4 +42,8 @@ function validarMeses() {
         return false
     }
     return true;
+}
+// Asigna los valores a la gráfica
+function mostrarTabla() {
+    
 }
