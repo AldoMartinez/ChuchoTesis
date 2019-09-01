@@ -28,6 +28,7 @@ const lpSeleccionada = document.getElementById('lineaProduccionS');
 
 // Acomodo de datos para la gráfica
 var [fechas, valores, indiceReal, drossCalculado, area] = asignarValores(indicesAsignados, lpSeleccionada);
+console.log(valores);
 // Opcion 0 -> Retorna todos los array's
 // Cualquier otra opcion -> retorna solo los indices reales y las fechas
 function asignarValores(indicesAsignados, lineaProduccion, opcion=0) {
@@ -77,7 +78,7 @@ lpSeleccionada.addEventListener("change", function() {
     // Area Chart
     areaChartConfig.data.labels = fechas;
     areaChartConfig.data.datasets[0].data = area;
-
+    console.log(window.indicesChart);
     // Actualizar valores de las graficas
     window.indicesChart.update();
     drossChartRendimiento.update();
