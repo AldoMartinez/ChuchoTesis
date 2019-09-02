@@ -197,15 +197,15 @@ var configIndicesRealesChart = {
             text: 'Chart.js Time Scale'
         },
         scales: {
-            xAxes: [{
-                type: 'time',
-                time: {
-                    unit: 'day',
-                    parser: timeFormat,
-                    round: 'day',
-                    tooltipFormat: 'll'
-                }
-            }],
+            // xAxes: [{
+            //     type: 'time',
+            //     time: {
+            //         unit: 'day',
+            //         parser: timeFormat,
+            //         round: 'day',
+            //         tooltipFormat: 'll'
+            //     }
+            // }],
             yAxes: [{
                 scaleLabel: {
                     display: true,

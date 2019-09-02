@@ -25,18 +25,13 @@ form.addEventListener('submit', function(e) {
             // Actualiza los valores de la tabla
             const indicesAsignadosMes1 = asignarLaminasIndices(data.indices1, data.laminas1);
             const indicesAsignadosMes2 = asignarLaminasIndices(data.indices2, data.laminas2);
-            let [fechasMes1, indicesRealesMes1] = asignarValores(indicesAsignadosMes1, lineaProduccionSeleccionada, 1);
-            console.log(fechasMes1);
-            console.log(indicesRealesMes1);
-            let [fechasMes2, indicesRealesMes2] = asignarValores(indicesAsignadosMes2, lineaProduccionSeleccionada, 1);
-            // let fechasChart = masFechas(fechasMes1, fechasMes2);
-            let fechasChart = [];
-            fechasMes1.forEach(fecha => {
-                fechasChart.push(fecha);
-            });
-            fechasMes2.forEach(fecha => {
-                fechasChart.push(fecha);
-            });
+            // let [fechasMes1, indicesRealesMes1] = asignarValores(indicesAsignadosMes1, lineaProduccionSeleccionada, 1);
+            // console.log(fechasMes1);
+            // console.log(indicesRealesMes1);
+            // let [fechasMes2, indicesRealesMes2] = asignarValores(indicesAsignadosMes2, lineaProduccionSeleccionada, 1);
+            let fechasChart = obtenerDiasMes();
+            let indicesRealesMes1 = convertir31Valores(indicesAsignadosMes1);
+            let indicesRealesMes2 = convertir31Valores(indicesAsignadosMes2);
             actualizarTabla(fechasChart, indicesRealesMes1, indicesRealesMes2);
         })
         .catch(error => console.log(error));
@@ -68,10 +63,31 @@ function actualizarTabla(fechasChart, indicesRealesMes1, indicesRealesMes2) {
     indicesRealesChart.update();
 }
 
-// Retorna el array de fechas que contiene más datos
-function masFechas(fechasMes1, fechasMes2) {
-    let contadorMes1 = fechasMes1.length;
-    let contadorMes2 = fechasMes2.length;
+// Retorna los 31 dias del mes
+function obtenerDiasMes() {
+    var diasDelMes = []
+    for (let index = 1; index <= 31; index++) {
+        let dia = index.toString();
+        diasDelMes.push(dia);
+    }
+    return diasDelMes;
+}
 
-    return contadorMes1 >= contadorMes2 ? fechasMes1 : fechasMes2;
+// Retorna el array con 31 valores
+function convertir31Valores(indices) {
+    var valores = [];
+    for (let x = 1; x <= 31; x++) {
+        valores.push("0");
+        for (let j = 0; j < indices.length; j++) {
+            let fecha = new Date(indices[j].fecha);
+            fecha.setDate(fecha.getDate() + 1);
+            if(fecha.getDate() == x) {
+                valores.pop();
+                let indiceReal = indices[j].indiceReal.toFixed(4);
+                valores.push(indiceReal);
+            }
+        }
+        
+    }
+    return valores;
 }
