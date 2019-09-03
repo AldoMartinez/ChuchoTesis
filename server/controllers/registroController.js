@@ -1,9 +1,15 @@
 const usuario = require('../models/Usuario');
+const routes = require('../routes/index');
 
 exports.registroPage = (req, res) => {
-    res.render('registro', {
-        nombrePagina: 'Registro'
-    });
+    if(routes.sesion.email == null) {
+        res.redirect("/login");
+    } else {
+        res.render('registroCuenta', {
+            nombrePagina: 'Registro'
+        });
+    }
+    
 }
 
 exports.registroCuenta = (req, res) => {
@@ -12,25 +18,28 @@ exports.registroCuenta = (req, res) => {
 
     let errores = [];
     if(!nombres) {
-        errores.push({'mensaje' : 'Agrega tus nombres'})
+        errores.push({'mensaje' : 'Agrega tus nombres'});
     }
     if(!apellidos) {
-        errores.push({'mensaje' : 'Agrega tus apellidos'})
+        errores.push({'mensaje' : 'Agrega tus apellidos'});
     }
     if(!correo) {
-        errores.push({'mensaje' : 'Agrega tu correo'})
+        errores.push({'mensaje' : 'Agrega tu correo'});
     }
     if(!contrasena) {
-        errores.push({'mensaje' : 'Agrega tu contraseña'})
+        errores.push({'mensaje' : 'Agrega tu contraseña'});
     }
     if(!contrasenaRepeat) {
-        errores.push({'mensaje' : 'Confirma tu contraseña'})
+        errores.push({'mensaje' : 'Confirma tu contraseña'});
+    }
+    if(contrasenaRepeat != contrasena) {
+        errores.push({'mensaje' : "Las contraseñas no coinciden"});
     }
 
     // revisar los errores
     if(errores.length > 0) {
         // muestra la vista con errores
-        res.render('registro', {
+        res.render('registroCuenta', {
             nombrePagina: 'Registro',
             errores,
             nombres,
@@ -45,7 +54,10 @@ exports.registroCuenta = (req, res) => {
             correo,
             contrasena
         })
-        .then(usuario => res.redirect('/login'))
+        .then(usuario => res.render('registroCuenta', {
+            nombrePagina: 'Registro',
+            successMessage: 'Se creo la cuenta correctamente'
+        }))
         .catch(error => console.log(error));
     }
     console.log(req.body);

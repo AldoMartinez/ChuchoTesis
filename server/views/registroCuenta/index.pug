@@ -1,0 +1,41 @@
+extends ../layout/index
+block registroCuenta
+    .container-fluid
+        // Page Heading
+        .d-sm-flex.align-items-center.justify-content-between.mb-4
+            h1.h3.mb-0.text-gray-800 Crear cuenta
+        // - Ingreso de Datos -
+        .row
+            .col-lg-6.offset-lg-3
+                .card.shadow.mb-4
+                    // Card Header - Dropdown
+                    .card-header.py-3.d-flex.flex-row.align-items-center.justify-content-between
+                        h6.m-0.font-weight-bold.text-primary Datos del usuario
+                    // Card Body
+                    .card-body
+                        form.user(action='/registro', method="POST")
+                            .form-group.row
+                                .col-sm-6.mb-3.mb-sm-0
+                                    input#nombres.form-control.form-control-user(type='text', placeholder='Nombres', name="nombres", value=nombres, required)
+                                .col-sm-6
+                                    input#apellidos.form-control.form-control-user(type='text', placeholder='Apellidos', name="apellidos", value=apellidos, required)
+                            .form-group
+                                input#correo.form-control.form-control-user(type='email', placeholder='Correo electrónico', name="correo", value=correo, required)
+                            .form-group.row
+                                .col-sm-6.mb-3.mb-sm-0
+                                    input#contrasena.form-control.form-control-user(type='password', placeholder='Contraseña', name="contrasena", required)
+                                .col-sm-6
+                                    input#contrasenaRepeat.form-control.form-control-user(type='password', placeholder='Repite la contraseña', name="contrasenaRepeat", required)
+                            .form-group.text-center
+                                button.btn.btn-success.btn-icon-split(type="submit", value="Registrar usuario")
+                                    span.icon.text-white-50
+                                        i.fas.fa-check
+                                    span.text Registrar usuario
+                        .col-lg-12
+                            if(errores)
+                                each error in errores
+                                    .card.bg-danger.text-white-shadow
+                                        .card-body.erroresMS.text-center.text-white=error.mensaje
+                            if(successMessage)
+                                .card.bg-success.text-white-shadow
+                                    .card-body.erroresMS.text-center.text-white=successMessage
