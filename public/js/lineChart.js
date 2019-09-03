@@ -154,20 +154,21 @@ var areaChartConfig = {
         }
     }
 };
-
+var mes1Label = "";
+var mes2Label = "";
 var configIndicesRealesChart = {
     type: 'line',
     data: {
         labels: [],
         datasets: [{
-            label: 'Mes 1',
+            label: mes1Label,
             backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
             borderColor: window.chartColors.red,
             fill: false,
             lineTension: 0,
             data: [],
         }, {
-            label: 'Mes 2',
+            label: mes2Label,
             fill: false,
             backgroundColor: "rgba(78, 115, 223, 0.05)",
             borderColor: "rgba(78, 115, 223, 1)",
@@ -197,15 +198,6 @@ var configIndicesRealesChart = {
             text: 'Chart.js Time Scale'
         },
         scales: {
-            // xAxes: [{
-            //     type: 'time',
-            //     time: {
-            //         unit: 'day',
-            //         parser: timeFormat,
-            //         round: 'day',
-            //         tooltipFormat: 'll'
-            //     }
-            // }],
             yAxes: [{
                 scaleLabel: {
                     display: true,

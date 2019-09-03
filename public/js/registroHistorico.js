@@ -25,13 +25,27 @@ form.addEventListener('submit', function(e) {
             // Actualiza los valores de la tabla
             const indicesAsignadosMes1 = asignarLaminasIndices(data.indices1, data.laminas1);
             const indicesAsignadosMes2 = asignarLaminasIndices(data.indices2, data.laminas2);
-            // let [fechasMes1, indicesRealesMes1] = asignarValores(indicesAsignadosMes1, lineaProduccionSeleccionada, 1);
-            // console.log(fechasMes1);
-            // console.log(indicesRealesMes1);
-            // let [fechasMes2, indicesRealesMes2] = asignarValores(indicesAsignadosMes2, lineaProduccionSeleccionada, 1);
             let fechasChart = obtenerDiasMes();
             let indicesRealesMes1 = convertir31Valores(indicesAsignadosMes1);
             let indicesRealesMes2 = convertir31Valores(indicesAsignadosMes2);
+            // Muestra alerta si alguno de los meses no contiene datos
+            var mensaje = "";
+            if(indicesAsignadosMes1.length == 0) {
+                var nombreMes1 = obtenerNombreMes(mes1.value);
+                mensaje = mensaje + nombreMes1 + " no contiene datos";
+            }
+            if(indicesAsignadosMes2.length == 0) {
+                var nombreMes2 = obtenerNombreMes(mes2.value);
+                if(mensaje.length == 0) {
+                    mensaje = mensaje + nombreMes2 + " no contiene datos";
+                } else {
+                    mensaje = mensaje + "\n" + nombreMes2 + " no contiene datos";
+                }
+            }
+            if(mensaje.length != 0) {
+                alert(mensaje);
+            }
+
             actualizarTabla(fechasChart, indicesRealesMes1, indicesRealesMes2);
         })
         .catch(error => console.log(error));
@@ -53,11 +67,13 @@ function validarMeses() {
 }
 // Asigna los valores a la gráfica
 function actualizarTabla(fechasChart, indicesRealesMes1, indicesRealesMes2) {
-    console.log(configIndicesRealesChart);
-    console.log(window.indicesRealesChart);
+    var nombreMes1 = obtenerNombreMes(mes1.value);
+    var nombreMes2 = obtenerNombreMes(mes2.value);
     // Pasa los valores a la configuración de la tabla
     configIndicesRealesChart.data.labels = fechasChart;
+    configIndicesRealesChart.data.datasets[0].label = nombreMes1;
     configIndicesRealesChart.data.datasets[0].data = indicesRealesMes1;
+    configIndicesRealesChart.data.datasets[1].label = nombreMes2;
     configIndicesRealesChart.data.datasets[1].data = indicesRealesMes2;
 
     indicesRealesChart.update();
@@ -90,4 +106,13 @@ function convertir31Valores(indices) {
         
     }
     return valores;
+}
+
+// Retorna el nombre del mes que se le pasa su numero
+function obtenerNombreMes(mesSeleccionado) {
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    var numeroMesString = mesSeleccionado.slice(-2);
+    var numeroMes = parseInt(numeroMesString) - 1;
+
+    return meses[numeroMes];
 }
