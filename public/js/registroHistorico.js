@@ -28,7 +28,7 @@ form.addEventListener('submit', function(e) {
             let fechasChart = obtenerDiasMes();
             let indicesRealesMes1 = convertir31Valores(indicesAsignadosMes1);
             let indicesRealesMes2 = convertir31Valores(indicesAsignadosMes2);
-            // Muestra alerta si alguno de los meses no contiene datos
+            // Validación de los datos de cada mes
             var mensaje = "";
             if(indicesAsignadosMes1.length == 0) {
                 var nombreMes1 = obtenerNombreMes(mes1.value);
@@ -42,6 +42,7 @@ form.addEventListener('submit', function(e) {
                     mensaje = mensaje + "\n" + nombreMes2 + " no contiene datos";
                 }
             }
+            // Muestra alerta si alguno de los meses no contiene datos
             if(mensaje.length != 0) {
                 alert(mensaje);
             }
