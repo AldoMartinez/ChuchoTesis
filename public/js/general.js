@@ -13,5 +13,8 @@ for (let index = 0; index < lineasSelect.length; index++) {
 
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-    $('#dataTable').DataTable();
-  });
+    $('#dataTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['excel', 'pdf', 'print']
+    });
+});
