@@ -61,6 +61,10 @@ var config = {
                 }
             }],
             yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 20
+                },
                 scaleLabel: {
                     display: true,
                     labelString: 'gr/m2'
@@ -199,6 +203,10 @@ var configIndicesRealesChart = {
         },
         scales: {
             yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 20
+                },
                 scaleLabel: {
                     display: true,
                     labelString: 'gr/m2'
