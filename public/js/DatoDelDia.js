@@ -21,7 +21,7 @@ class DatoDelDia {
     sumaArea(area) {
         this.areaTotal += area;
     }
-
+    // Q en kg
     obtenerFe(peso_hierro, consumo_zinc, q) {
         var fe = (peso_hierro * consumo_zinc / 100) + q;
 
@@ -33,7 +33,7 @@ class DatoDelDia {
 
         return al;
     }
-
+    // Dross en kg
     obtenerDrossCalculado() {
         var al = this.obtenerAl(this.peso_aluminio, this.consumo_zinc);
         var fe = this.obtenerFe(this.peso_hierro, this.consumo_zinc, this.qTotal);
@@ -42,16 +42,18 @@ class DatoDelDia {
 
         this.dross_calculado = dross;
     }
-    // El indice se obtiene de la división del dross (g) entre Area (m^2)
+    // El indice se obtiene de la división del dross (kg) entre Area (m^2)
+    // Resultado -> g/m^2
     obtenerIndiceCalculado() {
-        // let drossGramos = this.dross_calculado * 1000;
-        // this.indiceCalculado = drossGramos / this.areaTotal;
-        this.indiceCalculado = this.dross_calculado / this.areaTotal;
+        let drossGramos = this.dross_calculado * 1000;
+        this.indiceCalculado = drossGramos / this.areaTotal;
+        //this.indiceCalculado = this.dross_calculado / this.areaTotal;
     }
-
+    
+    // Resultado -> g/m^2
     obtenerIndiceReal() {
-        // let drossGramos = this.dross_real * 1000;
-        // this.indiceReal = drossGramos / this.areaTotal;
-        this.indiceReal = this.dross_real / this.areaTotal;
+        let drossGramos = this.dross_real * 1000;
+        this.indiceReal = drossGramos / this.areaTotal;
+        //this.indiceReal = this.dross_real / this.areaTotal;
     }
 }

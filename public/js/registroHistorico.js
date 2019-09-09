@@ -26,9 +26,13 @@ form.addEventListener('submit', function(e) {
             const indicesAsignadosMes1 = asignarLaminasIndices(data.indices1, data.laminas1);
             const indicesAsignadosMes2 = asignarLaminasIndices(data.indices2, data.laminas2);
             let fechasChart = obtenerDiasMes();
+            // console.log(indicesAsignadosMes1);
+            // console.log(indicesAsignadosMes2);
             let indicesRealesMes1 = convertir31Valores(indicesAsignadosMes1);
             let indicesRealesMes2 = convertir31Valores(indicesAsignadosMes2);
-            // Validación de los datos de cada mes
+            // console.log(indicesRealesMes1);
+            // console.log(indicesRealesMes2);
+            //Validación de los datos de cada mes
             var mensaje = "";
             if(indicesAsignadosMes1.length == 0) {
                 var nombreMes1 = obtenerNombreMes(mes1.value);
@@ -93,6 +97,16 @@ function obtenerDiasMes() {
 // Retorna el array con 31 valores
 function convertir31Valores(indices) {
     var valores = [];
+    if(indices.length == 31) {
+        indices.forEach(element => {
+            if(element.indiceReal == Infinity) {
+                valores.push("0");
+            } else {
+                valores.push(element.indiceReal.toFixed(4));
+            }
+        });
+        return valores;
+    }
     for (let x = 1; x <= 31; x++) {
         valores.push("0");
         for (let j = 0; j < indices.length; j++) {
@@ -100,11 +114,14 @@ function convertir31Valores(indices) {
             fecha.setDate(fecha.getDate() + 1);
             if(fecha.getDate() == x) {
                 valores.pop();
-                let indiceReal = indices[j].indiceReal.toFixed(4);
-                valores.push(indiceReal);
+                if (indices[j].indiceReal == Infinity) {
+                    valores.push("0");
+                } else {
+                    let indiceReal = indices[j].indiceReal.toFixed(4);
+                    valores.push(indiceReal);
+                }
             }
         }
-        
     }
     return valores;
 }
