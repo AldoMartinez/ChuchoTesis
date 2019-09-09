@@ -44,16 +44,16 @@ function asignarValores(indicesAsignados, lineaProduccion, opcion=0) {
             fecha.setDate(fecha.getDate() + 1); // Añade un dia a la fecha
             fechas.push(fecha);
             // Indice calcuado con 4 digitos
-            let icCuatroDigitos = datoPorDia.indiceCalculado.toFixed(4);
+            let icCuatroDigitos = datoPorDia.indiceCalculado.toFixed(2);
             valores.push(icCuatroDigitos);
             // Indice real con 4 digitos
-            let irCuatroDigitos = datoPorDia.indiceReal.toFixed(4);
+            let irCuatroDigitos = datoPorDia.indiceReal.toFixed(2);
             indiceReal.push(irCuatroDigitos);
             // Dross calculado con 4 dígitos
-            let drossCuatroDigitos = datoPorDia.dross_calculado.toFixed(4);
+            let drossCuatroDigitos = datoPorDia.dross_calculado.toFixed(2);
             drossCalculado.push(drossCuatroDigitos);
             // Area con 4 digitos
-            let areaCuatroDigitos = datoPorDia.areaTotal.toFixed(4);
+            let areaCuatroDigitos = datoPorDia.areaTotal.toFixed(2);
             area.push(areaCuatroDigitos);
             
         }
