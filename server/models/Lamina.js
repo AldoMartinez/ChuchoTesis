@@ -32,7 +32,7 @@ const lamina = db.define('lamina', {
         type: Sequelize.FLOAT
     },
     fecha: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
     },
     linea_id: {
         type: Sequelize.INTEGER

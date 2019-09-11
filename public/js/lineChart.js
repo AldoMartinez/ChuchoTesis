@@ -4,8 +4,10 @@ window.randomScalingFactor = function() {
     return valor
 };
 
+// Formato de la fecha.
 var timeFormat = 'MM/DD/YYYY';
 
+// Configuraciones para las gráficas del tipo LineChart.
 var color = Chart.helpers.color;
 var config = {
     type: 'line',
@@ -20,8 +22,6 @@ var config = {
             data: valores,
         }, {
             label: 'Indice Real',
-            //backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            //borderColor: window.chartColors.blue,
             fill: false,
             backgroundColor: "rgba(78, 115, 223, 0.05)",
             borderColor: "rgba(78, 115, 223, 1)",
@@ -158,6 +158,9 @@ var areaChartConfig = {
         }
     }
 };
+
+// Se inicializan los nombres de los meses en blanco.
+// Una ves que se seleccionan los meses de comparar, se sobreescriben.
 var mes1Label = "";
 var mes2Label = "";
 var configIndicesRealesChart = {
@@ -244,6 +247,5 @@ window.onload = function() {
     window.areaChart = new Chart(areaChart, areaChartConfig);
     console.log(window.indicesChart);
 };
-
 var ctxIndices = document.getElementById('indicesRealesChart').getContext('2d');
 var indicesRealesChart = new Chart(ctxIndices, configIndicesRealesChart);

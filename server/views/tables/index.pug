@@ -1,9 +1,9 @@
 extends ../layout/index
 block tables
+
     // DataTables
     link(rel="stylesheet", href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css")
     link(rel="stylesheet", href="/css/dataTable.css")
-    //link(rel="stylesheet", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css")
 
     // Pasa el array de las laminas al javascript file
     script(type='text/javascript').                                                   
@@ -29,7 +29,6 @@ block tables
                                 span.icon.text-white-50
                                     i.fas.fa-search
                                 span.text|Buscar
-                
                 .table-responsive
                     table#dataTable.table.table-bordered.display.nowrap(width='100%', cellspacing='0')
                         thead
@@ -62,6 +61,7 @@ block tables
                                         td=lamina.fecha
     // /.container-fluid
 block sources
+
     // DataTables
     script(src="vendor/datatables/jquery.dataTables.min.js")
     script(src='vendor/datatables/dataTables.bootstrap4.min.js')

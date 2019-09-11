@@ -1,40 +1,38 @@
-// Modelos
+// Se cargan los modelos
 const usuario = require('../models/Usuario');
 const dia = require('../models/DatosDelDia');
 const lamina = require('../models/Lamina');
 const lineaProduccion = require('../models/linea_produccion');
 
+// Se cargan las utilidades
 const funciones = require('./funciones');
 const routes = require('../routes/index');
-
 const { Op } = Sequelize = require('sequelize');
-// GET
+
+// Se ejecuta cuando se carga la página 'Ingreso de datos'
 exports.inicioPage = async (req, res) => {
-    if(routes.sesion.email == null) {
+    if (routes.sesion.email == null) {
         res.redirect("/login");
     } else {
         const lineas_produccion = await lineaProduccion.findAll();
-        const current_lp = funciones.crearArrayLP(lineas_produccion);
-        var nombresUsuario = "";
-        var apellidosUsuario = "";
+        const lineasProduccionArray = funciones.crearArrayLP(lineas_produccion);
         usuario.findAll({
             where: {
                 usuario_id: global.usuarioID
             }
         }).then(function(user) {
-            nombresUsuario = user[0].nombres;
-            apellidosUsuario = user[0].apellidos;
-            global.nombreUsuario = nombresUsuario + " " + apellidosUsuario;
-            let fechaActual = funciones.obtenerFecha();
+            global.nombreUsuario = user[0].nombres + " " + user[0].apellidos;
             dia.findAll({
                 where: {
                     fecha: funciones.obtenerFecha(),
-                    [Op.or]: current_lp 
+                    [Op.or]: lineasProduccionArray 
                 }
             })
             .then(function(dias) {
-                // Si ya hay un registro en datos del dia en el dia actual, ya no se permite introducir mas datos
-                if(dias.length < lineas_produccion.length) {
+
+                // Si ya hay un registro en datos del dia en el dia actual
+                // ya no se permite introducir mas datos.
+                if (dias.length < lineas_produccion.length) {
                     res.render("index", {
                         nombrePagina: 'Ingreso de datos',
                         nombreUsuario: global.nombreUsuario,
@@ -51,43 +49,44 @@ exports.inicioPage = async (req, res) => {
             .catch(error => console.log(error));
         })
     }
-    
 }
-// POST
+
+// Se ejecuta cuando se agrega una lamina.
 exports.agregarDatos = async (req, res) => {
-    // valida que todos los campos estén llenos
+
+    // Valida que todos los campos estén llenos
     let {pram, ancho, largo, espesor, temperatura_cinta, temperatura_paila, al_efectivo, velocidad, linea_id} = req.body;
     let fecha = Date();
     let errores = [];
-    if(!pram) {
+    if (!pram) {
         errores.push({"mensaje" : "Agrega la pram"});
     }
-    if(!ancho) {
+    if (!ancho) {
         errores.push({"mensaje" : "Agrega el ancho"});
     }
-    if(!largo) {
+    if (!largo) {
         errores.push({"mensaje" : "Agrega el largo"});
     }
-    if(!espesor) {
+    if (!espesor) {
         errores.push({"mensaje" : "Agrega el espesor"});
     }
-    if(!temperatura_cinta) {
+    if (!temperatura_cinta) {
         errores.push({"mensaje" : "Agrega la temperatura de cinta"});
     }
-    if(!temperatura_paila) {
+    if (!temperatura_paila) {
         errores.push({"mensaje" : "Agrega la temperatura de paila"});
     }
-    if(!al_efectivo) {
+    if (!al_efectivo) {
         errores.push({"mensaje" : "Agrega el aluminio efectivo"});
     }
-    if(!velocidad) {
+    if (!velocidad) {
         errores.push({"mensaje" : "Agrega la velocidad"});
     }
-    if(!linea_id) {
+    if (!linea_id) {
         errores.push({"mensaje" : "Selecciona una linea de producción"});
     }
     const lineas_produccion = await lineaProduccion.findAll();
-    if(errores.length > 0) {
+    if (errores.length > 0) {
         res.render('index', {
             errores,
             pram,
@@ -102,7 +101,7 @@ exports.agregarDatos = async (req, res) => {
         })
     } else {
         let successMessage = "Datos agregados correctamente";
-        // agrega los datos de la lamina en la base de datos
+        // Agrega los datos de la lamina en la base de datos
         lamina.create({
             pram,
             ancho,
@@ -116,11 +115,11 @@ exports.agregarDatos = async (req, res) => {
             linea_id
         })
         .then(async function(lamina) {
-            const current_lp = funciones.crearArrayLP(lineas_produccion);
+            const lineasProduccionArray = funciones.crearArrayLP(lineas_produccion);
             const dias = await dia.findAll({
                 where: {
                     fecha: funciones.obtenerFecha(),
-                    [Op.or]: current_lp
+                    [Op.or]: lineasProduccionArray
                 }
             });
             res.render('index', {
@@ -135,10 +134,10 @@ exports.agregarDatos = async (req, res) => {
     console.log(req.body);
 }
 
+// Guarda el índice del día en la base de datos.
 exports.finalizarJornada = (req, res) => {
     let {peso_aluminio, peso_hierro, consumo_zinc, dross_real, linea_id} = req.body;
     let fecha = Date();
-
     dia.create({
         peso_aluminio,
         peso_hierro,

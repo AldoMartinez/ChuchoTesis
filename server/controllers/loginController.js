@@ -1,6 +1,8 @@
+// Se cargan los modelos
 const usuario = require('../models/Usuario');
 const routes = require('../routes/index');
 
+// Muestra la vista de inicio de sesión.
 exports.loginControllerGet = (req, res) => {
     routes.sesion = req.session;
     routes.sesion.email = null;
@@ -9,6 +11,7 @@ exports.loginControllerGet = (req, res) => {
     });
 }
 
+// Maneja el inicio de sesión.
 exports.infoUsuario = (req, res) => {
     let {correo, contrasena} = req.body;
     var usuarios = [];
@@ -17,12 +20,12 @@ exports.infoUsuario = (req, res) => {
             usuarios = usuariosConsulta;
             var usuarioCorrecto = false
             usuarios.forEach(user => {
-                if(correo == user.correo && contrasena == user.contrasena) {
+                if (correo == user.correo && contrasena == user.contrasena) {
                     usuarioCorrecto = true;
                     global.usuarioID = user.usuario_id;
                 }
             });
-            if(usuarioCorrecto) {
+            if (usuarioCorrecto) {
                 routes.sesion = req.session;
                 routes.sesion.email = correo;
                 res.redirect('/inicio');

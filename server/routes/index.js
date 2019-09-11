@@ -10,17 +10,18 @@ const tablaController = require('../controllers/tablaController');
 const lineasProduccionController = require('../controllers/lineasProduccionController');
 const registroHistoricoController = require('../controllers/registroHistoricoController');
 
-//var usuarioID = null;
+// Variables
 global.usuarioID = null;
 global.nombreUsuario = "";
 global.lineaProduccion = 0;
-var sesion;
+
+// Maneja las rutas URL y decide que controlador usar dependiendo
+// la ruta que se le pase.
 module.exports = function() {
     router.get("/", loginController.loginControllerGet);
     router.get('/login', loginController.loginControllerGet);
     router.post('/login', loginController.infoUsuario);
     router.get('/registro', registroController.registroPage);
-    // cuando se crea un usuario
     router.post('/registro', registroController.registroCuenta);
     router.get('/inicio', inicioController.inicioPage);
     router.post('/inicio', inicioController.agregarDatos);

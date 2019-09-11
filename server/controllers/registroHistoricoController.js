@@ -1,20 +1,19 @@
+// Se carga la configuración de la base de datos.
 const sequelize = require('../config/database');
 
+// Se cargan los modelos.
 const dia = require('../models/DatosDelDia');
 const lamina = require('../models/Lamina');
 const lineaProduccion = require('../models/linea_produccion');
 
+// Se cargan las utilidades.
 const funciones = require('./funciones');
 const routes = require('../routes/index');
-
 const { Op } = Sequelize = require('sequelize');
 
-var añoMes = funciones.obtenerAñoMes();
-añoMes = funciones.añoMesSinGuion(añoMes);
-
-// GET
+// Muestra la vista del 'Registro Histórico'
 exports.registroHistoricoGet = async (req, res) => {
-    if(routes.sesion.email == null) {
+    if (routes.sesion.email == null) {
         res.redirect('/login');
     } else {
         const lineas_produccion = await lineaProduccion.findAll();
@@ -24,7 +23,9 @@ exports.registroHistoricoGet = async (req, res) => {
         });
     }
 }
+
 // Consulta los datos de los meses y linea de producción seleccionados
+// y retorna los datos de la laminas e indices en el response.
 exports.consultarDatos = async (req, res) => {
     const añoMes1 = funciones.añoMesSinGuion(req.params.mes1);
     const añoMes2 = funciones.añoMesSinGuion(req.params.mes2);
@@ -42,6 +43,7 @@ exports.consultarDatos = async (req, res) => {
     }
     res.send(resultados);
 }
+
 // Se le pasa el añoMes del que se quiere traer todo los registros
 function obtenerQuery(añoMes, lineaProduccion) {
     // Query para obtener los registros del mes actual

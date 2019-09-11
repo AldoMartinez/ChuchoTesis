@@ -8,13 +8,14 @@ html(lang='es')
     meta(name='author', content='Aldo Aram Martinez Mireles')
     link(rel="shortcut icon", href="../../../img/ternium-logo.png", type="image/x-icon")
     title= (nombrePagina)
-    // Custom fonts for this template
+
+    // Se cargan las fuentes.
     link(href='/vendor/fontawesome-free/css/all.min.css', rel='stylesheet', type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i', rel='stylesheet')
-    // Custom styles for this template
+    
+    // Se cargan los estilos.
     link(href='/css/sb-admin-2.min.css', rel='stylesheet')
     link(href='/css/general.css', rel='stylesheet')
-    //- script(src="https://code.jquery.com/jquery-1.10.2.js")
   body#page-top
     // Page Wrapper
     #wrapper
@@ -48,26 +49,30 @@ html(lang='es')
                 .modal-footer
                     button.btn.btn-secondary(type='button', data-dismiss='modal') Cancelar
                     a.btn.btn-primary(href='/login') Cerrar sesión
-    // Bootstrap core JavaScript
+    
+    // Recursos JavaScript
     script(src='vendor/jquery/jquery.min.js')
     script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')
-    // Core plugin JavaScript
     script(src='vendor/jquery-easing/jquery.easing.min.js')
-    // Custom scripts for all pages
     script(src='js/sb-admin-2.min.js')
+    
     // Plugins
     script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")
     script(src="js/utils.js")
     block sources
+    
     // Modelos
     script(src="js/Lamina.js")
     script(src="js/DatoDelDia.js")
+    
     // Funciones
-    script(src="js/datosRendimiento.js")
-    script(src="js/registroHistorico.js")
+    script(src="js/DatosRendimiento.js")
+    script(src="js/RegistroHistorico.js")
+    
     // Gráficas
-    script(src="js/lineChart.js")
-    script(src="js/barChart.js")
+    script(src="js/LineChart.js")
+    script(src="js/BarChart.js")
+    
     // General
-    script(src="js/general.js")
+    script(src="js/General.js")
