@@ -1,4 +1,4 @@
-
+// Clase Lamina
 function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila, fecha) {
     this.pram = pram;
     this.largo = largo;
@@ -9,7 +9,6 @@ function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila
     this.Tcinta = Tcinta;
     this.Tpaila = Tpaila;
     this.fecha = fecha;
-
     this.area = obtenerArea(largo, ancho, espesor);
     this.ILT_nm = obtenerILT_nm(aluminio);
     this.ILT_m = obtenerILT_m(this.ILT_nm);
@@ -26,25 +25,21 @@ function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila
         const segundoBloque = 2 * largo * espesor / 1000;
         const tercerBloque = 2 * ancho * espesor / 1000;
         const area = primerBloque + segundoBloque + tercerBloque;
-
         return area;
     }
 
     function obtenerILT_nm(aluminio) {
         const resultado = 866 + (366 * Math.log(aluminio));
-
         return resultado;
     }
 
     function obtenerILT_m(ILT_nm) {
         const resultado = ILT_nm * (0.000000001);
-
         return resultado;
     }
 
     function obtenerTiempo(velocidad) {
         const resultado = 2.76 / (velocidad / 60);
-
         return resultado;
     }
 
@@ -57,22 +52,17 @@ function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila
     }
 
     function obtenerTbano(Tcinta_k, Tpaila_k, tiempo, espesor) {
-        const diferenciasT = Tcinta_k - Tpaila_k;
-
+        const diferenciasTemperatura = Tcinta_k - Tpaila_k;
         const numeroAExponenciar = (-1500 * tiempo) / (7880 * (espesor / 1000) * 477);
         const segundoFactor = Math.exp(numeroAExponenciar);
-
-        return diferenciasT * segundoFactor + Tpaila_k;
+        return diferenciasTemperatura * segundoFactor + Tpaila_k;
     }
-
 
     // Obtiene el coeficiente de difusión de los atomos del metal
     function obtenerDiffusionCoefficient(Tbano) {
         const constante = 0.00000034779;
         const numeroAExponenciar = -139024 / (8.314 * Tbano);
-
         const resultado = constante * Math.exp(numeroAExponenciar);
-
         return resultado;
     }
 
@@ -81,9 +71,7 @@ function Lamina(pram, ancho, largo, espesor, velocidad, aluminio, Tcinta, Tpaila
         const primerFactor = (D * 99.991) / ILT_m;
         const tercerFactor = 2.76;
         const cuartoFactor = 1 / (velocidad / 60);
-
         const resultado = primerFactor * area * tercerFactor * cuartoFactor;
-
         return resultado;
     }
 

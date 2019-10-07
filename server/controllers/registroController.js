@@ -1,8 +1,9 @@
+// Carga los modelos.
 const usuario = require('../models/Usuario');
 const routes = require('../routes/index');
 
 exports.registroPage = (req, res) => {
-    if(routes.sesion.email == null) {
+    if (routes.sesion.email == null) {
         res.redirect("/login");
     } else {
         res.render('registroCuenta', {
@@ -13,32 +14,33 @@ exports.registroPage = (req, res) => {
 }
 
 exports.registroCuenta = (req, res) => {
-    // valida que todos los campos estén llenos
-    let {nombres, apellidos, correo, contrasena, contrasenaRepeat} = req.body;
 
+    // Valida que todos los campos estén llenos.
+    let {nombres, apellidos, correo, contrasena, contrasenaRepeat} = req.body;
     let errores = [];
-    if(!nombres) {
+    if (!nombres) {
         errores.push({'mensaje' : 'Agrega tus nombres'});
     }
-    if(!apellidos) {
+    if (!apellidos) {
         errores.push({'mensaje' : 'Agrega tus apellidos'});
     }
-    if(!correo) {
+    if (!correo) {
         errores.push({'mensaje' : 'Agrega tu correo'});
     }
-    if(!contrasena) {
+    if (!contrasena) {
         errores.push({'mensaje' : 'Agrega tu contraseña'});
     }
-    if(!contrasenaRepeat) {
+    if (!contrasenaRepeat) {
         errores.push({'mensaje' : 'Confirma tu contraseña'});
     }
-    if(contrasenaRepeat != contrasena) {
+    if (contrasenaRepeat != contrasena) {
         errores.push({'mensaje' : "Las contraseñas no coinciden"});
     }
 
-    // revisar los errores
-    if(errores.length > 0) {
-        // muestra la vista con errores
+    // Valida si se encontraron o no errores en el formulario de registro de cuenta.
+    if (errores.length > 0) {
+
+        // Muestra la vista con errores.
         res.render('registroCuenta', {
             nombrePagina: 'Registro',
             errores,
@@ -47,7 +49,8 @@ exports.registroCuenta = (req, res) => {
             correo
         })
     } else {
-        // guardar la cuenta en la base de datos
+
+        // Guarda la nueva cuenta en la base de datos.
         usuario.create({
             nombres,
             apellidos,

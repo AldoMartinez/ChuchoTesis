@@ -1,14 +1,18 @@
+// Se carga la configuración de la base de datos.
 const sequelize = require('../config/database');
+
+// Se cargan los modelos.
 const lamina = require('../models/Lamina');
 const lineaProduccion = require('../models/linea_produccion');
 
+// Se cargan las utilidades.
 const routes = require('../routes/index');
 const funciones = require('./funciones');
-
 const { Op } = Sequelize = require('sequelize');
-// GET
+
+// Muestra la vista 'Datos'.
 exports.tablaPage = async (req, res) => {
-    if(routes.sesion.email == null){
+    if (routes.sesion.email == null) {
         res.redirect("login");
     } else {
         fechaPicker = funciones.obtenerAñoMes();
@@ -17,7 +21,6 @@ exports.tablaPage = async (req, res) => {
         lineaProduccion.hasMany(lamina, {foreignKey: 'linea_id'});
         lamina.belongsTo(lineaProduccion,{foreignKey: 'linea_id'});
         const laminas = await lamina.findAll(query);
-        console.log(laminas);
         res.render('tables', {
             nombrePagina: 'Datos',
             nombreUsuario: global.nombreUsuario,
@@ -25,14 +28,13 @@ exports.tablaPage = async (req, res) => {
             fechaPicker
         })
     }
-    
 }
-// Al cambar el mes
+
+// Retorna los datos de las láminas del mes seleccionado.
 exports.registrosPorMes = async (req, res) => {
     let { mes } = req.body;
-    let añoMes = funciones.añoMesSinGuion(mes);
     fechaPicker = mes;
-    let query = getQuery(añoMes);
+    let query = getQuery(funciones.añoMesSinGuion(mes));
     lineaProduccion.hasMany(lamina, {foreignKey: 'linea_id'});
     lamina.belongsTo(lineaProduccion,{foreignKey: 'linea_id'});
     const laminas = await lamina.findAll(query);
@@ -44,6 +46,7 @@ exports.registrosPorMes = async (req, res) => {
     })
 
 }
+
 // Query para obtener los registros del mes indicado y hacer inner join con linea de produccion
 function getQuery(añoMes) {
     let query = {

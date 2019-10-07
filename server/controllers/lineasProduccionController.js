@@ -1,3 +1,4 @@
+// Se carga el modelo de linea de producción.
 const lineaProduccion = require('../models/linea_produccion');
 
 exports.verLineasProduccion = async(req, res) => {
@@ -11,11 +12,10 @@ exports.verLineasProduccion = async(req, res) => {
 exports.agregarLineaProduccion = (req, res) => {
     let { nombre } = req.body;
     let errores = [];
-    if(!nombre) {
+    if (!nombre) {
         errores.push("El nombre es necesario");
     }
-
-    if(errores.length > 0){
+    if (errores.length > 0){
         res.render('lineasProduccion', {
             nombrePagina: 'Lineas de producción',
             errores

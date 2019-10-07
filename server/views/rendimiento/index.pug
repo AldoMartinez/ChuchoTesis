@@ -2,7 +2,7 @@ extends ../layout/index
 block rendimiento
     // Pasa el array de las laminas al javascript file
     script(type='text/javascript').                                                   
-        var data = !{JSON.stringify(laminas)};
+        var laminas = !{JSON.stringify(laminas)};
         var datosDelDia = !{JSON.stringify(datosDelDia)};
         var lineas_produccion = !{JSON.stringify(lineas_produccion)};
     // Begin Page Content
