@@ -17,13 +17,14 @@ form.addEventListener('submit', function(e) {
             return res.json();
         })
         .then(function(data) {
-            console.log(data);
 
             // Actualiza los valores de la tabla.
             const indicesAsignadosMes1 = asignarLaminasIndices(data.indices1, data.laminas1);
             let fechasChart = obtenerDiasMes();
             let [indicesRealesMes1, indicesCalculadosMes1] = convertir31Valores(indicesAsignadosMes1);
-
+            console.log(indicesAsignadosMes1);
+            console.log(indicesCalculadosMes1);
+            
             // Validación de los datos de cada mes.
             var mensaje = "";
             if (indicesAsignadosMes1.length == 0) {
