@@ -32,6 +32,6 @@ module.exports = function() {
     router.get('/lineas_produccion', lineasProduccionController.verLineasProduccion);
     router.post('/agregarLinea', lineasProduccionController.agregarLineaProduccion);
     router.get('/registro_historico', registroHistoricoController.registroHistoricoGet);
-    router.get("/consultaIndicesReales/:mes1&:mes2&:lp", registroHistoricoController.consultarDatos);
+    router.get("/consultaIndicesReales/:mes1&:lp", registroHistoricoController.consultarDatos);
     return router
 }

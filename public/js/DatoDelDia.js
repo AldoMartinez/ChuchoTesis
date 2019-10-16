@@ -6,7 +6,8 @@ class DatoDelDia {
         this.dross_real = dross_real;
         this.fecha = fecha;
         this.linea_id = linea_id;
-        
+        this.zincArrastrado = 0.0997;
+
         // Suma de las q en kg del dia
         this.qTotal = 0;
         this.dross_calculado = 0;
@@ -37,7 +38,7 @@ class DatoDelDia {
     obtenerDrossCalculado() {
         var al = this.obtenerAl(this.peso_aluminio, this.consumo_zinc);
         var fe = this.obtenerFe(this.peso_hierro, this.consumo_zinc, this.qTotal);
-        var dross = (al + fe) / 0.05;
+        var dross = (al + fe) / this.zincArrastrado;
         this.dross_calculado = dross;
     }
 

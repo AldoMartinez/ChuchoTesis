@@ -15,11 +15,9 @@ block registroHistorico
                         .card-body
                             .row.no-gutters.align-items-center
                                 .col-lg-3.justify-content-center.align-self-center.mb-3.mr-1
-                                    h6 Selecciona los meses a comparar
+                                    h6 Selecciona un mes
                                 .col-lg-3.justify-content-center.align-self-center.mb-3.mr-2
                                     input#mes1.form-control.form-control-user(name="mes1", type="month", required)
-                                .col-lg-3.justify-content-center.align-self-center.mb-3
-                                    input#mes2.form-control.form-control-user(name="mes2", type="month", required)
                             .row.no-gutters.align-items-center
                                 .col-lg-3.mb-2.justify-content-center.align-self-center.mb-3.mr-1
                                     h6 Linea de producción
@@ -36,9 +34,9 @@ block registroHistorico
             .col-xl-12.col-lg-10
                 .card.shadow.mb-4
                     .card-header.py-3
-                        h6.m-0.font-weight-bold.text-primary Indices reales
+                        h6.m-0.font-weight-bold.text-primary Indices reales y calculados
                     .card-body
                         .chart-area
                             canvas#indicesRealesChart
                         hr
-                        |Comparación de los indices reales por mes
+                        |Comparación de los indices reales y calculados por mes
