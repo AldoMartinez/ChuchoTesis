@@ -28,18 +28,12 @@ exports.registroHistoricoGet = async (req, res) => {
 // y retorna los datos de la laminas e indices en el response.
 exports.consultarDatos = async (req, res) => {
     const añoMes1 = funciones.añoMesSinGuion(req.params.mes1);
-    const añoMes2 = funciones.añoMesSinGuion(req.params.mes2);
     var query = obtenerQuery(añoMes1, req.params.lp);
     const laminas1 = await lamina.findAll(query);
     const indices1 = await dia.findAll(query);
-    query = obtenerQuery(añoMes2, req.params.lp);
-    const laminas2 = await lamina.findAll(query);
-    const indices2 = await dia.findAll(query);
     const resultados = {
         laminas1: laminas1,
-        indices1: indices1,
-        laminas2: laminas2,
-        indices2: indices2
+        indices1: indices1
     }
     res.send(resultados);
 }
