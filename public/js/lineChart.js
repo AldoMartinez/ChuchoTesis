@@ -161,8 +161,8 @@ var areaChartConfig = {
 
 // Se inicializan los nombres de los meses en blanco.
 // Una ves que se seleccionan los meses de comparar, se sobreescriben.
-var mes1Label = "";
-var mes2Label = "";
+var mes1Label = "Indice Real";
+var mes2Label = "Indice Calculado";
 var configIndicesRealesChart = {
     type: 'line',
     data: {
