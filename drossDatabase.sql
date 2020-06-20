@@ -7514,18 +7514,17 @@ CREATE TABLE `usuario` (
   `correo` varchar(60) NOT NULL,
   `contrasena` varchar(60) NOT NULL,
   PRIMARY KEY (`usuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 
 INSERT INTO `usuario` (`usuario_id`, `nombres`, `apellidos`, `correo`, `contrasena`)
 VALUES
-	(1,'Aldo','Martinez','aldo.mireles.97@gmail.com','Computadora97'),
+	(1,'Aldo','Martinez','aldo.mireles.97@gmail.com','123456'),
 	(5,'Luis','Rodriguez','luis@hotmail.com','123'),
-	(6,'Alicia','Guadalupe','alicia.mireles@gmail.com','123'),
-	(12,'Alygu','Mtz','alygu_91@hotmail.com','123'),
-	(22,'Jesús ','Islas Cerón','f.j.islas@hotmail.com','f1j9i9c2');
+	(22,'Jesús ','Islas Cerón','f.j.islas@hotmail.com','f1j9i9c2'),
+	(23,'test ','test','test@dross.com','123456');
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
