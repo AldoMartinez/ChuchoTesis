@@ -36,7 +36,7 @@
     "jquery.easing": "^1.4.1",
     "mysql2": "^1.7.0",
     "nodemon": "^1.19.2",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "sequelize": "^5.18.1"
   },
   "devDependencies": {
